@@ -1,28 +1,26 @@
 package Operations;
 
+import CPU.CPU;
 import MachineCode.GeneralMachineCode;
 
 
 public class Sub implements Operation {
     GeneralMachineCode gmc = new GeneralMachineCode();
-    private final String opcode = "00";
     private String rs = "";
     private String rt = "";
     private String rd = "";
-    private String shamt = "00";
-    private String funct = "22";
 
     public Sub(String binary) {
         String[] parsedInstruction = binary_parser(binary);
         if (parsedInstruction.length == 3) {
             String rs_temp = gmc.bin_toHexImmediate(parsedInstruction[0]);
-            this.rs = gmc.pad_binary(rs_temp, 2 - rs_temp.length());
+            this.rs = CPU.hex_to_reg(gmc.pad_binary(rs_temp, 2 - rs_temp.length()));
 
             String rt_temp = gmc.bin_toHexImmediate(parsedInstruction[1]);
-            this.rt = gmc.pad_binary(rt_temp, 2 - rt_temp.length());
+            this.rt = CPU.hex_to_reg(gmc.pad_binary(rt_temp, 2 - rt_temp.length()));
 
             String rd_temp = gmc.bin_toHexImmediate(parsedInstruction[2]);
-            this.rd = gmc.pad_binary(rd_temp, 2 - rd_temp.length());
+            this.rd = CPU.hex_to_reg(gmc.pad_binary(rd_temp, 2 - rd_temp.length()));
         } else {
             throw new IllegalArgumentException("Invalid binary instruction format.");
         }
@@ -41,15 +39,15 @@ public class Sub implements Operation {
         }
     }
 
-    @Override
-    public String get_mnenomic() {
-        return String.format("sub {opcode: %s, rs: %s, rt: %s, rd: %s, shmt: %s, funct: %s}",
-                opcode, rs, rt, rd, shamt, funct);
-    }
+//    @Override
+//    public String get_mnenomic() {
+//        return String.format("sub {opcode: %s, rs: %s, rt: %s, rd: %s, shmt: %s, funct: %s}",
+//                opcode, rs, rt, rd, shamt, funct);
+//    }
 
     @Override
     public String[] getInstruction() {
-        return new String[]{opcode, rs, rt, rd, shamt, funct};
+        return new String[]{rs, rt, rd};
     }
 
     @Override

@@ -1,29 +1,29 @@
 package Operations;
 
+import CPU.CPU;
 import MachineCode.GeneralMachineCode;
 
 
+import java.math.BigInteger;
 import java.util.Arrays;
 
 public class Addiu implements Operation{
     GeneralMachineCode gmc = new GeneralMachineCode();
-    private String opcode = "09";
     private String rs = "";
     private String rt = "";
-    private String offset = "";
+    private int offset = -1;
 
     public Addiu (String binary)
     {
         String[] parsedInstruction = binary_parser(binary);
         if (parsedInstruction.length == 3) {
             String rs_temp = gmc.bin_toHexImmediate(parsedInstruction[0]);
-            this.rs = gmc.pad_binary(rs_temp, 2 - rs_temp.length());
+            this.rs = CPU.hex_to_reg(gmc.pad_binary(rs_temp, 2 - rs_temp.length()));
 
             String rt_temp = gmc.bin_toHexImmediate(parsedInstruction[1]);
-            this.rt = gmc.pad_binary(rt_temp, 2 - rt_temp.length());
+            this.rt = CPU.hex_to_reg(gmc.pad_binary(rt_temp, 2 - rt_temp.length()));
 
-            String offset_temp = gmc.bin_toHexImmediate(parsedInstruction[2]);
-            this.offset = gmc.pad_binary(offset_temp, 4 - offset_temp.length());
+            this.offset = new BigInteger(parsedInstruction[2], 2).intValue();
         } else {
             throw new IllegalArgumentException("Invalid binary instruction format.");
         }
@@ -39,15 +39,16 @@ public class Addiu implements Operation{
             throw new IllegalArgumentException("Invalid binary instruction format.");
         }
     }
-    @Override
-    public String get_mnenomic() {
-        return String.format("addiu {opcode: %s, rs(base): %s, rt: %s, immediate(offset): %s}",
-                opcode, rs, rt, offset);
-    }
+
+//    @Override
+//    public String get_mnenomic() {
+//        return String.format("addiu {opcode: %s, rs(base): %s, rt: %s, immediate(offset): %s}",
+//                opcode, rs, rt, offset);
+//    }
 
     @Override
     public String[] getInstruction() {
-        return new String[]{opcode, rs, rt, offset};
+        return new String[]{rs, rt, ""+offset};
     }
 
     @Override

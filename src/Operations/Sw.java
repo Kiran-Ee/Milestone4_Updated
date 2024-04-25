@@ -1,6 +1,9 @@
 package Operations;
 
+import CPU.CPU;
 import MachineCode.GeneralMachineCode;
+
+import java.math.BigInteger;
 
 
 public class Sw implements Operation {
@@ -8,19 +11,18 @@ public class Sw implements Operation {
     private final String opcode = "2b";
     private String base = "";
     private String rt = "";
-    private String offset = "";
+    private int offset = -1;
 
     public Sw(String binary) {
         String[] parsedInstruction = binary_parser(binary);
         if (parsedInstruction.length == 3) {
             String rs_temp = gmc.bin_toHexImmediate(parsedInstruction[0]);
-            this.base = gmc.pad_binary(rs_temp, 2 - rs_temp.length());
+            this.base =  CPU.hex_to_reg(gmc.pad_binary(rs_temp, 2 - rs_temp.length()));
 
             String rt_temp = gmc.bin_toHexImmediate(parsedInstruction[1]);
-            this.rt = gmc.pad_binary(rt_temp, 2 - rt_temp.length());
+            this.rt =  CPU.hex_to_reg(gmc.pad_binary(rt_temp, 2 - rt_temp.length()));
 
-            String offset_temp = gmc.bin_toHexImmediate(parsedInstruction[2]);
-            this.offset = gmc.pad_binary(offset_temp, 4 - offset_temp.length());
+            this.offset = new BigInteger(parsedInstruction[2]).intValue();
         } else {
             throw new IllegalArgumentException("Invalid binary instruction format.");
         }
@@ -39,14 +41,14 @@ public class Sw implements Operation {
         }
     }
 
-    @Override
-    public String get_mnenomic() {
-        return String.format("sw {opcode: %s, rs(base): %s, rt: %s, immediate(offset): %s}", opcode, base, rt, offset);
-    }
+//    @Override
+//    public String get_mnenomic() {
+//        return String.format("sw {opcode: %s, rs(base): %s, rt: %s, immediate(offset): %s}", opcode, base, rt, offset);
+//    }
 
     @Override
     public String[] getInstruction() {
-        return new String[]{opcode, base, rt, offset};
+        return new String[]{base, rt, ""+offset};
     }
 
     @Override

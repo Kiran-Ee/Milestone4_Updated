@@ -2,17 +2,17 @@ package Operations;
 
 import MachineCode.GeneralMachineCode;
 
+import java.math.BigInteger;
+
 
 public class j implements Operation {
     GeneralMachineCode gmc = new GeneralMachineCode();
-    private String opcode = "02"; //opcode for j instruction
-    private String instr_index;
+    private int address = -1;
 
     public j(String binary){
         String[] parsedInstruction = binary_parser(binary);
         if (parsedInstruction.length == 1) {
-            String instr_index_temp = gmc.bin_toHexImmediate(parsedInstruction[0]);;
-            this.instr_index = gmc.pad_binary(instr_index_temp, 7-instr_index_temp.length());
+            address = new BigInteger(parsedInstruction[0], 2).intValue();
         } else {
             throw new IllegalArgumentException("Invalid binary instruction format.");
         }
@@ -28,14 +28,14 @@ public class j implements Operation {
         }
     }
 
-    @Override
-    public String get_mnenomic() {
-        return String.format("j {opcode: %s, index: %s}", opcode, instr_index);
-    }
+//    @Override
+//    public String get_mnenomic() {
+//        return String.format("j {opcode: %s, index: %s}", opcode, instr_index);
+//    }
 
     @Override
     public String[] getInstruction() {
-        return new String[]{opcode, instr_index};
+        return new String[]{""+address};
     }
 
     @Override
