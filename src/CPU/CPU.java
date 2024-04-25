@@ -44,6 +44,8 @@ public class CPU {
     public static int ra = -1;
 
     // Master Method:
+    // 1] Translates data & text secs to instructions or mem
+    // 2] Runs program
     public static String cpu(String hex_dta, String hex_txt) {
         return null;
     }
