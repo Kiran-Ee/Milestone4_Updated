@@ -1,15 +1,16 @@
 package SecConverters;
 
 import Operations.Add;
+import Operations.Operation;
 
 import java.util.LinkedHashMap;
 
 public class TextSecConverter {
-    public static LinkedHashMap<String, Object[]> text_mem = new LinkedHashMap<>();
+    public static Operation[] text_mem = null; // will need to dynamically set size
 
     public static void textSec_Converter(String hex_txt) { //USE MILESTONE 2 AS EXAMPLE.
-        // TODO - JUST TESTING THE "val" OBJECT ARRAY
-        text_mem.put("1", new Object[]{"add $1, $1, $1", new Add("32 bit binary"), "00400000"});
+        // TODO
+        text_mem = new Operation[]{new Add("32 bit binary")};
     }
 
 

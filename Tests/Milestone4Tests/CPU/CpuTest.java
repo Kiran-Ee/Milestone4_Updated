@@ -244,7 +244,6 @@ class CpuTest {
     @Test
     void out_print3() {
         assertEquals(exp_out3, CPU.cpu(dataSec3, textSec3));
-        ;
     }
 
     @Test

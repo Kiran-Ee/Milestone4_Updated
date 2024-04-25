@@ -264,17 +264,18 @@ public class CPU {
 
     // Iterates over all our instructions & operates ... NEEDS TO BE FIXED FOR PC, JUMPS, SYSCALL ...
     public static String run_program() { //TODO
-        LinkedHashMap<String, Object[]> txtSec_translated = TextSecConverter.text_mem;
-        Operation opObj = null;
-        String op = "";
-        String return_string = ""; // only syscall returns
-        for (Object[] instr : txtSec_translated.values()) {
-            op = (String) instr[0];
-            opObj = (Operation) instr[1];
-
-            if (op.equals("syscall")) return_string = syscall_handler(v0);
-            else return_string = opObj.operate();
-        }
-        return return_string;
+//        LinkedHashMap<String, Object[]> txtSec_translated = TextSecConverter.text_mem;
+//        Operation opObj = null;
+//        String op = "";
+//        String return_string = ""; // only syscall returns
+//        for (Object[] instr : txtSec_translated.values()) {
+//            op = (String) instr[0];
+//            opObj = (Operation) instr[1];
+//
+//            if (op.equals("syscall")) return_string = syscall_handler(v0);
+//            else return_string = opObj.operate();
+//        }
+//        return return_string;
+        return null;
     }
 }

@@ -2,25 +2,26 @@ package Operations;
 
 
 import MachineCode.GeneralMachineCode;
+import CPU.CPU;
+
+import java.math.BigInteger;
 
 public class AndI implements Operation{
     GeneralMachineCode gmc = new GeneralMachineCode();
-    private final String opcode = "0c";
     private String rs = "";
     private String rt = "";
-    private String immediate = "";
+    private int immediate = -1;
 
     public AndI(String binary){
         String[] parsedInstruction = binary_parser(binary);
         if (parsedInstruction.length == 3) {
             String rs_temp = gmc.bin_toHexImmediate(parsedInstruction[0]);
-            this.rs = gmc.pad_binary(rs_temp, 2 - rs_temp.length());
+            this.rs = CPU.hex_to_reg(gmc.pad_binary(rs_temp, 2 - rs_temp.length()));
 
             String rt_temp = gmc.bin_toHexImmediate(parsedInstruction[1]);
-            this.rt = gmc.pad_binary(rt_temp, 2 - rt_temp.length());
+            this.rt = CPU.hex_to_reg(gmc.pad_binary(rt_temp, 2 - rt_temp.length()));
 
-            String immediate_temp = gmc.bin_toHexImmediate(parsedInstruction[2]);
-            this.immediate = gmc.pad_binary(immediate_temp, 4 - immediate_temp.length());
+            this.immediate = new BigInteger(parsedInstruction[2], 2).intValue();
         } else {
             throw new IllegalArgumentException("Invalid binary instruction format.");
         }
@@ -40,15 +41,15 @@ public class AndI implements Operation{
         }
     }
 
-    @Override
-    public String get_mnenomic() {
-        return String.format("andi {opcode: %s, rs(base): %s, rt: %s, immediate(offset): %s}",
-                opcode, rs, rt, immediate);
-    }
+//    @Override
+//    public String get_mnenomic() {
+//        return String.format("andi {opcode: %s, rs(base): %s, rt: %s, immediate(offset): %s}",
+//                opcode, rs, rt, immediate);
+//    }
 
     @Override
     public String[] getInstruction() {
-        return new String[]{opcode, rs, rt, immediate};
+        return new String[]{rs, rt, "" +immediate};
     }
 
     @Override
