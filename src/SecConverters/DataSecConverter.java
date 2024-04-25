@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 public class DataSecConverter {
     public static LinkedHashMap<String, String> data_mem = new LinkedHashMap<>();
 
-    public void dtaSec_Converter(String hex_dta) {
+    public static void dataSec_Converter(String hex_dta) {
 
     }
 

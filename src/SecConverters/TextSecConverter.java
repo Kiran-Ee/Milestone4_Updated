@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 public class TextSecConverter {
     public static LinkedHashMap<String, Object[]> text_mem = new LinkedHashMap<>();
 
-    public void textSec_Converter(String hex_txt) {
+    public static void textSec_Converter(String hex_txt) { //USE MILESTONE 2 AS EXAMPLE.
         // TODO - JUST TESTING THE "val" OBJECT ARRAY
         text_mem.put("1", new Object[]{"add $1, $1, $1", new Add("32 bit binary"), "00400000"});
     }

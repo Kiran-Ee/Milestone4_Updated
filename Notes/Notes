@@ -14,5 +14,16 @@
     - hm.get(“$at”)
  - 4] Perform operation
     - Update CPU via "CPU.update_register("$reg", int val)""
+TEST OPERATIONS STRUCTURE:
+- Ex: Add object representing "Add: add v0 a0 a1" ...
+- 1] EVERY TEST IS GOING TO NEED TO SET THE CPU. (See GetRegisterStateTest to steal code)
+    - $a0 = 2
+    - $a1 = 3
+- 2] Create instance of class w/ specified registers ^
+    - Used MIPS Instruction Calculator to create different “add” instructions (to get the binary)
+    - Created exactly same way as previous tests: enter 32 bit binary String
+- 3] .operate()
+- 4] Assert the operation changes appropriate registers
+    - AssertEquals(hm.get(“$v0”), 5)
 
 ####################################################################################################

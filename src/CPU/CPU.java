@@ -47,10 +47,13 @@ public class CPU {
     // 1] Translates data & text secs to instructions or mem
     // 2] Runs program
     public static String cpu(String hex_dta, String hex_txt) {
-        return null;
+        DataSecConverter.dataSec_Converter(hex_dta);
+        TextSecConverter.textSec_Converter(hex_txt);
+
+        return run_program();
     }
 
-    // Used by Operations to inspect the receive register values
+    // Used by Operations to inspect the received register values
     public static HashMap<String, Integer> get_registers_state() {
         HashMap<String, Integer> hm = new HashMap<String, Integer>() {
         };
@@ -262,13 +265,15 @@ public class CPU {
     // Iterates over all our instructions & operates ... NEEDS TO BE FIXED FOR PC, JUMPS, SYSCALL ...
     public static String run_program() { //TODO
         LinkedHashMap<String, Object[]> txtSec_translated = TextSecConverter.text_mem;
-        Operation op = null;
+        Operation opObj = null;
+        String op = "";
         String return_string = ""; // only syscall returns
         for (Object[] instr : txtSec_translated.values()) {
-            op = (Operation) instr[1];
+            op = (String) instr[0];
+            opObj = (Operation) instr[1];
 
-            if (instr.equals("syscall")) return_string = syscall_handler(v0);
-            else op.operate();
+            if (op.equals("syscall")) return_string = syscall_handler(v0);
+            else return_string = opObj.operate();
         }
         return return_string;
     }
