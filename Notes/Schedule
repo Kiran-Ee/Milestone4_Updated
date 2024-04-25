@@ -1,0 +1,33 @@
+####################################################################################################
+---:SCHEDULE:---
+] DESIGN: Fri./Sat./Sun.
+    - 3 Days
+    - Notes + Method Description.
+    - Assign Methods
+] WRITING TESTS: Mon./Tue./Wed./Thu./Fri.
+    - 5 Days
+    - Write Tests Based on Design Document
+        - 3-6 unique tests
+    - UPDATE DESIGN: specify what each operation is supposed to do
+
+... 4 Day Study Period ...
+(Tanja - You can work on tests, writing down more questions, or improving the design doc)
+    - I was hoping it is better to honestly tell you I will not be able to do any work (for any of my classes)
+      than to give a false impression of my workload.
+KIRAN'S STUDY DAYS
+    - Sat./Sun./Mon.
+!EXAM! (This will take all day unfortunately)
+    - Tue.
+...                    ...
+
+] PASS TESTS:
+    - Wed./Thu./Fri./Sat.:
+    - 4 Days
+    - Write Code to pass tests
+] GRADING Sun./Mon.
+    - 2 Days
+    - Possibly add more tests, generate new .asm files
+    - Import fuzzy grader & pass tests
+    - Submit JAR w/o breakpoints.
+] Buffer day ... Tue.
+] SUBMIT: Wed.

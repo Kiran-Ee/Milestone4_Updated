@@ -1,0 +1,51 @@
+####################################################################################################
+---:PROCEDURE:---
+[1] Call respective methods to convert "Hex" to their "original form"
+    -Data Example-
+        INPUT
+                     "65746e45"
+                     "6f792072"
+                     "69207275"
+                     "6765746e"
+                     "203a7265"
+                     "......00"
+        OUTPUT
+                     input_request: "Enter your integer: "
+    -Text Example-
+        INPUT
+                    "3c013b9a"
+                     "3422ca00"
+                     "3c011001"
+                     "34240000"
+                     "0000000c"
+        OUTPUT
+                    "li $v0, 1000000000"
+                    "la $a0, input_request"
+                    "syscall"
+   - Going to need 2 separate methods to convert data & text to original form.
+        - Data: Reverse the "little endian process"
+            - *not sure how to get the label from hex*
+        - Text: Do Milestone 3's Hex->Instruction + Milestone 2's Label -> Immediate
+[2a] "Perform" each operation
+    -Example-
+        ORIGINAL STATE
+                    ...
+                    $a0: 1 <-
+                    $a1: 2
+                    $a2: 3
+                    ...
+        (Then performs: add $a0, $a1, $a2)
+        FINAL STATE
+                    ...
+                    $a0: 5 <-
+                    $a1: 2
+                    $a2: 3
+                    ...
+    - Need a class to keep track of the CPU's registers so all instructions can access/mutate state.
+        - Probably keep a hashmap so operations can interact with CPU: keys = registers, values = the value each reg is holding.
+[2b] Syscalls
+    - Whenever encounter Syscalls: print string or int or read int. to the system
+[3] Finish when li $v0 10 or end of program.
+
+
+

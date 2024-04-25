@@ -1,0 +1,16 @@
+####################################################################################################
+---:QUESTIONS:---
+4/?
+1] *not sure how to get the label from hex for the data sec*
+    - We're give the actual datavalues in the data_sec + the addresses from the test_sec.
+2] do branches have to actually branch?
+    - Yes.
+4/24
+3] Why are we sending data_sec's hex, why not just "run" the text instructions?
+    - If syscall occurs (print string), we need to know "what is that string"
+    ... the string is stored in data sec, therefore we need data sec
+4] How are we supposed to branch?
+    - Keep track of "PC" (in a loop, this is just the index of the string array of instructions)
+    ... jump (j): change the "PC" to the exact value of the instruction in the Data structure
+    ... Branch (bne, beq): change the "PC" to the next instruction's index + offset
+####################################################################################################

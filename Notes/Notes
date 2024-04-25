@@ -1,0 +1,18 @@
+####################################################################################################
+---:Random Notes:---
+- To re-use all of our previous code, all operation instance variables are sent in binary
+  ... this means each operate method will have convert the binary registers into it’s actual register and then use CPU's methods
+
+ OPERATE METHODS STUCTURE:
+ - 1] Constructor will send in machine code of the instruction in 32 binary
+    - REGISTERS WILL BE SET IN HEX
+ (new stuff below...)
+ - 2] Convert Register fields from Hex -> Register
+    - CPU.hex_to_reg("01")
+ - 3] Get the "actual value" inside the register inside CPU
+    - hm = CPU.get_registers_state()
+    - hm.get(“$at”)
+ - 4] Perform operation
+    - Update CPU via "CPU.update_register("$reg", int val)""
+
+####################################################################################################

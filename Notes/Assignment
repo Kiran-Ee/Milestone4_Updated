@@ -1,0 +1,31 @@
+####################################################################################################
+---:ASSIGNMENT:---
+GOAL:
+    - Take in .text & .data asm paths
+    - Convert their hex's into actual instructions
+    - Perform the operation of each instruction
+    - Account for syscall
+REQUIREMENTS:
+    - Memory:
+        .data] starts 0x10010000
+        .text] starts 0x00400000
+    - Exiting:
+        If End of Program: "-- program finished running (dropped off bottom) --"
+        If syscall: "-- program is finished running --"
+    - Syscall:
+        (1) Print String
+                addiu $v0, $zero, 4
+                la $a0, stringInDataSection
+                // Print "stringInDataSection"'s value in .data
+        (2) Print Integer
+                addiu $v0, $zero, 1
+                li $a0, 10
+                // Print "10"
+        (3) Read Integer
+                addiu $v0, $zero, 5
+                // $v0 contains user's int
+        (4) Exit
+                addiu $v0, $zero, 10
+SUBMISSION:
+    -
+
