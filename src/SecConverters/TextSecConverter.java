@@ -13,7 +13,7 @@ public class TextSecConverter {
         text_mem = new Operation[]{new Add("32 bit binary")};
     }
 
-    public String lnInterpreter_txtHex(String hex_txtLn) { // <- THIS IS WHERE TO APPLY MILESTONE’S 3 LOGIC!
+    public Operation lnInterpreter_txtHex(String hex_txtLn) { // <- THIS IS WHERE TO APPLY MILESTONE’S 3 LOGIC!
         return null;
     }
 }
