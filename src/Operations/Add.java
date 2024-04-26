@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class Add implements Operation {
     GeneralMachineCode gmc = new GeneralMachineCode();
-    private String rs;
+    private String rs; // "01" -> "$at"
     private String rt;
     private String rd;
 

@@ -47,10 +47,10 @@ public class CPU {
     // 1] Translates data & text secs to instructions or mem
     // 2] Runs program
     public static String cpu(String hex_dta, String hex_txt) {
-        DataSecConverter.dataSec_Converter(hex_dta);
-        TextSecConverter.textSec_Converter(hex_txt);
+        DataSecConverter.dataSec_Converter(hex_dta); //linkedHashmap
+        TextSecConverter.textSec_Converter(hex_txt); //object[]
 
-        return run_program();
+        return run_program(); //executes all instructions
     }
 
     // Used by Operations to inspect the received register values

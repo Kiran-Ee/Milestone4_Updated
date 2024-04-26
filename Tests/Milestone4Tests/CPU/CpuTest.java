@@ -58,7 +58,7 @@ class CpuTest {
             "2402000a\n" +
             "0000000c\n";
 
-    String exp_out1 = "Enter your integer: 10\n" + "Your integer is EVEN!\n" + "-- program is finished running --";
+    String exp_out1 = "Enter your integer: 10\n" + "Your integer is EVEN!\n" + "-- program is finished running --"; //from syscall
     int[] exp_reg1 = new int[]{0, 268500992, 10, 0, 268501013, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 268468224, 2147479548, 0, 0};
 
     // RunProgramTest
@@ -210,7 +210,6 @@ class CpuTest {
     @Test
     void out_print1() {
         assertEquals(exp_out1, CPU.cpu(dataSec1, textSec1));
-        ;
     }
 
     @Test

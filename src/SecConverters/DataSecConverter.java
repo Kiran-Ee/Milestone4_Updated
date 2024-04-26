@@ -16,7 +16,7 @@ public class DataSecConverter {
     }
 
 
-    public String lnInterpreter_dtaHex(String hex_dtaLn) { // <- THIS IS WHERE TO APPLY MILESTONE’S 3 LOGIC!
+    public String[] lnInterpreter_dtaHex(String hex_dtaLn) { // <- THIS IS WHERE TO APPLY MILESTONE’S 3 LOGIC!
         return null;
     }
 
