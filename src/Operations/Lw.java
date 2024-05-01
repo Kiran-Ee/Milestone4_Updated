@@ -2,6 +2,7 @@ package Operations;
 
 import CPU.CPU;
 import MachineCode.GeneralMachineCode;
+import SecConverters.DataSecConverter;
 
 import java.math.BigInteger;
 
@@ -52,6 +53,16 @@ public class Lw implements Operation {
 
     @Override
     public String operate() {
+        int base_int = CPU.get_registers_state().get(base);
+        int return_int = base_int + offset;
+        String return_hex = GeneralMachineCode.bin_toHexImmediate(Integer.toBinaryString(return_int));
+        String return_str = DataSecConverter.data_mem.get(return_hex);
+
+        return null;
+    }
+
+    @Override
+    public String get_mnenomic() {
         return null;
     }
 }

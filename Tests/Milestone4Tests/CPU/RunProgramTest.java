@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import static org.testng.AssertJUnit.assertEquals;
+//import static org.testng.AssertJUnit.assertEquals;
 
 // taken from CpuTest
 class RunProgramTest {

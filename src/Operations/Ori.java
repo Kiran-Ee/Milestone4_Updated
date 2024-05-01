@@ -55,4 +55,9 @@ public class Ori implements Operation{
     public String operate() {
         return null;
     }
+
+    @Override
+    public String get_mnenomic() {
+        return null;
+    }
 }

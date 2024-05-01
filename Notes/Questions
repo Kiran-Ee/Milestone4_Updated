@@ -13,4 +13,6 @@
     - Keep track of "PC" (in a loop, this is just the index of the string array of instructions)
     ... jump (j): change the "PC" to the exact value of the instruction in the Data structure
     ... Branch (bne, beq): change the "PC" to the next instruction's index + offset
+ 5] Is LW word addressing or byte addressing ?
+ 6] How to deal with Sw? -
 ####################################################################################################

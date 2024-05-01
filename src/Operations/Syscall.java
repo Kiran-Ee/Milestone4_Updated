@@ -32,4 +32,9 @@ public class Syscall implements Operation{
         return null;
     }
 
+    @Override
+    public String get_mnenomic() {
+        return null;
+    }
+
 }

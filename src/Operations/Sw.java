@@ -53,6 +53,12 @@ public class Sw implements Operation {
 
     @Override
     public String operate() {
+        //1. get the value of the base register
+        return null;
+    }
+
+    @Override
+    public String get_mnenomic() {
         return null;
     }
 }

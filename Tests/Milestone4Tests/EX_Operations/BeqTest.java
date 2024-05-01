@@ -14,8 +14,8 @@ public class BeqTest {
     String bin_instr1 = "00010001101000100000000000000000"; //beq t5 v0 (0)-0x0000
     int t5_val = 13 ;
     int v0_val = 2;
-    int exp_val1 = 0; //Expected PC value if branch is taken
-
+    //int exp_val1 = 0; //Expected PC value if branch is taken
+    //136affae beq {opcode: 04, rs(base): 1b, rt: 0a, immediate(offset): ffae}
     @BeforeEach
     public void setUp(){
         CPU.t5 = t5_val;
@@ -26,8 +26,8 @@ public class BeqTest {
     @Test
     public void setBeq(){
         beq = new Beq(bin_instr1);
-        beq.operate();
-        // Check if the PC has changed indirectly by the effect of the branch
+        beq.operate(); //opereate need to se if registers are equal
+        // Check if the PC has changed indirectly by the effect of the branch - if == adjust program counter -->
         //assertTrue(someEffectOfBranchTakenOccurred());
 
     }

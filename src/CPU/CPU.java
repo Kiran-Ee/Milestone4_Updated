@@ -261,9 +261,21 @@ public class CPU {
         }
         return return_string;
     }
+//helper method for run_program()
+    public int branch_handler(Operation branch_obj, int PC) {
+        //no brunch return PC
+        //in operatee method check the string for equality (if == do operation +PC, != do operation)
+        //beq take 2 registers and compare for equality-->== return string
+        //offset is signed- pc needed to send next instruction and add the offset to it
+        if(branch_obj.operate().equals("branch")){
+           int offset = Integer.parseInt(branch_obj.getInstruction()[2]);
+            PC = PC+1+ offset;
+        }
+        return PC;
+    }
 
     // Iterates over all our instructions & operates ... NEEDS TO BE FIXED FOR PC, JUMPS, SYSCALL ...
-    public static String run_program() { //TODO
+    public static String run_program() { //TODO -
 //        LinkedHashMap<String, Object[]> txtSec_translated = TextSecConverter.text_mem;
 //        Operation opObj = null;
 //        String op = "";

@@ -11,9 +11,10 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         // MILESTONE'S 3 CODE
-        GeneralMachineCode gmc = new GeneralMachineCode();
-        String hex_instr = args[0];
-        String mnenomic = gmc.hex_to_mnenomic(hex_instr);
-        System.out.println(mnenomic);
+//        GeneralMachineCode gmc = new GeneralMachineCode();
+//        String hex_instr = args[0];
+//        String mnenomic = gmc.hex_to_mnenomic(hex_instr);
+//        System.out.println(mnenomic);
+        System.out.print("tsst");
     }
 }

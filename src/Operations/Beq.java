@@ -52,6 +52,12 @@ public class Beq implements Operation{
 
     @Override
     public String operate() {
+
+        return "branch";//return if reg are ==
+    }
+
+    @Override
+    public String get_mnenomic() {
         return null;
     }
 }
