@@ -1,7 +1,7 @@
 package CPU;
 
 import MachineCode.GeneralMachineCode;
-import Operations.Operation;
+import Operations.*;
 import SecConverters.DataSecConverter;
 import SecConverters.TextSecConverter;
 
@@ -264,33 +264,41 @@ public class CPU {
         }
         return return_string;
     }
-//helper method for run_program()
-    public int branch_handler(Operation branch_obj, int PC) {
+
+    //helper method for run_program()
+    public static int branch_handler(Operation branch_obj, int PC) {
         //no brunch return PC
-        //in operatee method check the string for equality (if == do operation +PC, != do operation)
+        //in operate method check the string for equality (if == do operation +PC, != do operation)
         //beq take 2 registers and compare for equality-->== return string
         //offset is signed- pc needed to send next instruction and add the offset to it
         if(branch_obj.operate().equals("branch")){
            int offset = Integer.parseInt(branch_obj.getInstruction()[2]);
-            PC = PC+1+ offset;
+            PC = PC + 1 + offset;
+        } else if(branch_obj.operate().equals("jump")) {
+            int address_dec = Integer.parseInt(branch_obj.getInstruction()[0]);
+            int starting_addr_dec = Integer.parseInt("00040000", 16);
+            PC = (address_dec - starting_addr_dec)/4; // word address
         }
         return PC;
     }
 
     // Iterates over all our instructions & operates ... NEEDS TO BE FIXED FOR PC, JUMPS, SYSCALL ...
-    public static String run_program() { //TODO -
-//        LinkedHashMap<String, Object[]> txtSec_translated = TextSecConverter.text_mem;
-//        Operation opObj = null;
-//        String op = "";
-//        String return_string = ""; // only syscall returns
-//        for (Object[] instr : txtSec_translated.values()) {
-//            op = (String) instr[0];
-//            opObj = (Operation) instr[1];
-//
-//            if (op.equals("syscall")) return_string = syscall_handler(v0);
-//            else return_string = opObj.operate();
-//        }
-//        return return_string;
-        return null;
+    public static String run_program() {
+        Operation[] txtSec_opObjs = TextSecConverter.text_mem;
+        Operation op_obj = null;
+        String return_string = ""; // only syscall returns
+
+        for(int pc = 0; pc < TextSecConverter.text_mem.length; pc++) {
+            op_obj = txtSec_opObjs[pc];
+            if(op_obj instanceof Syscall) {
+                return_string = syscall_handler(v0);
+            }
+            else if(op_obj instanceof j || op_obj instanceof Beq || op_obj instanceof Bne) {
+                pc = branch_handler(op_obj, pc);
+            } else {
+                op_obj.operate();
+            }
+        }
+        return return_string;
     }
 }

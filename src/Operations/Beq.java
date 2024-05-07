@@ -4,6 +4,8 @@ import CPU.CPU;
 import MachineCode.GeneralMachineCode;
 
 import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class Beq implements Operation{
     GeneralMachineCode gmc = new GeneralMachineCode();
@@ -52,8 +54,9 @@ public class Beq implements Operation{
 
     @Override
     public String operate() {
+        HashMap<String, Integer> hm = CPU.get_registers_state();
 
-        return "branch";//return if reg are ==
+        return (Objects.equals(hm.get(rs), hm.get(rt))) ? "branch" : "no branch" ;
     }
 
     @Override

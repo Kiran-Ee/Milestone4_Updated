@@ -40,7 +40,7 @@ public class j implements Operation {
 
     @Override
     public String operate() {
-        return null;
+        return "jump"; // tells "branch_handler" to jump
     }
 
     @Override
