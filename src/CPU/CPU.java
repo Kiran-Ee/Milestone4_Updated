@@ -1,5 +1,6 @@
 package CPU;
 
+import MachineCode.GeneralMachineCode;
 import Operations.Operation;
 import SecConverters.DataSecConverter;
 import SecConverters.TextSecConverter;
@@ -245,13 +246,15 @@ public class CPU {
                 return_string = String.valueOf(a0);
                 break;
             case 4: //print string
-                String hex_a0 = Integer.toHexString(a0);
+                String hex_a0_unpadded = Integer.toHexString(a0);
+                String hex_a0 = GeneralMachineCode.pad_binary(hex_a0_unpadded, 8 - hex_a0_unpadded.length());
                 return_string = DataSecConverter.data_mem.get(hex_a0); // handle key exception? ...
                 break;
             case 5: //read int
                 Scanner scanner = new Scanner(System.in);
                 System.out.print("Enter Int: ");
                 v0 = Integer.parseInt(scanner.nextLine()); // handle exception ...
+                return_string = "read int";
                 break;
             case 10: //stop execution
                 return_string = "-- program is finished running --";

@@ -78,7 +78,8 @@ public class GeneralMachineCode {
             case "syscall" -> new Syscall();
             default -> throw new IllegalArgumentException("Entered invalid operation to instruction_factory");
         };
-        return op_obj.get_mnenomic();
+//        return op_obj.get_mnenomic();
+        return null; // TODO
     }
 
     // "n" Digit Binary -> "n/4" Digit Hex
