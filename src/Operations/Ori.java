@@ -40,12 +40,6 @@ public class Ori implements Operation{
         }
     }
 
-//    @Override
-//    public String get_mnenomic() {
-//        return String.format("ori {opcode: %s, rs(base): %s, rt: %s, immediate(offset): %s}",
-//                opcode, rs, rt, immediate);
-//    }
-
     @Override
     public String[] getInstruction() {
         return new String[]{rs, rt, ""+immediate};

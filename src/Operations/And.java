@@ -38,12 +38,6 @@ public class And implements Operation{
         }
     }
 
-//    @Override
-//    public String get_mnenomic() {
-//        return String.format("and {opcode: %s, rs: %s, rt: %s, rd: %s, shmt: %s, funct: %s}",
-//                opcode, rs, rt, rd, shamt, funct);
-//    }
-
     @Override
     public String[] getInstruction() {
         return new String[]{rs, rt, rd};
