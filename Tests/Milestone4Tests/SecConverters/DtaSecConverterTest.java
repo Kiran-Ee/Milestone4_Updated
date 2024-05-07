@@ -39,27 +39,19 @@ class DtaSecConverterTest {
                     "74614409\n" +
                     "614c2061\n" +
                     "2d6c6562\n" +
-                    "212f2423";
+                    "212f2423\n" +
+                    "00000000";
     LinkedHashMap<String, String> hm2 = new LinkedHashMap<>();
 
     String dataSec3 = "";
     LinkedHashMap<String, String> hm3 = new LinkedHashMap<>();
 
-    @BeforeEach
-    public void setUp() {
+    @Test
+    void setDataSec1() {
         hm1.put("10010000", "Enter your integer: ");
         hm1.put("10010015", "Your integer is EVEN!");
         hm1.put("1001002b", "Your integer is ODD!");
 
-        hm2.put("10010000", "This is a   \tData Label-#$/!");
-
-        // hm3 = empty
-    }
-
-
-    @Test
-    void setDataSec1() {
-        
         DataSecConverter.data_mem = new LinkedHashMap<>(); // restarting variable
 
         DataSecConverter.dataSec_Converter(dataSec1);
@@ -73,12 +65,13 @@ class DtaSecConverterTest {
             String key = e.getKey();
             String v1 = e.getValue();
             String v2 = actual_hm.get(key);
-            assertEquals(v1, v2, "The values for key " + key + " are not equal.");  // checking vals
+            assertEquals(v1, v2);  // checking vals
         }
     }
 
     @Test
     void setDataSec2() {
+        hm2.put("10010000", "This is a   \tData Label-#$/!");
         DataSecConverter.data_mem = new LinkedHashMap<>(); // restarting variable
 
         DataSecConverter.dataSec_Converter(dataSec2);
@@ -92,18 +85,19 @@ class DtaSecConverterTest {
             String key = e.getKey();
             String v1 = e.getValue();
             String v2 = actual_hm.get(key);
-            assertEquals(v1, v2, "The values for key " + key + " are not equal.");  // checking vals
+            assertEquals(v1, v2);  // checking vals
         }
     }
 
 
-
     @Test
     void setDataSec3() {
-        DataSecConverter.dataSec_Converter(dataSec2);
+        DataSecConverter.data_mem = new LinkedHashMap<>(); // restarting variable
+
+        DataSecConverter.dataSec_Converter(dataSec3);
 
         LinkedHashMap<String, String> actual_hm = DataSecConverter.data_mem;
-        assertEquals(actual_hm, new LinkedHashMap<>());
+        assertEquals(new LinkedHashMap<>(), actual_hm);
     }
 
 }

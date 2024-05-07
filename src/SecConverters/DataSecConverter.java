@@ -16,24 +16,24 @@ public class DataSecConverter {
 
     public static void dataSec_Converter(String hex_dta) {
         try (BufferedReader reader = new BufferedReader(new StringReader(hex_dta))) {
-            String line;
+            String ln = "";
             String cur_addr = "10010000";
-            String[] ret_strArr;
-            String label = "";
-            String label2 = "";
+            int cur_size = -1;
+            String[] str_arr = null;
+            String lbl1 = "";
+            String lbl2 = "";
 
-            while ((line = reader.readLine()) != null) {
-                int cur_size = calc_data_size(cur_addr);
-                ret_strArr = lnInterpreter_dtaHex(line);
-                label = label + ret_strArr[0];
-                label2 = ret_strArr[1];
+            while ((ln = reader.readLine()) != null) {
+                str_arr = lnInterpreter_dtaHex(ln);
+                lbl1 = lbl1 + str_arr[0];
+                lbl2 = str_arr[1];
 
-                if (!label2.equals("")) { // only happens when found null byte
-                    data_mem.put(cur_addr, label);
-                    label = label2; //lbl2 is the start of the next string
+                if (!lbl2.equals("empty")) { // only happens when found null byte
+                    cur_size = calc_data_size(lbl1);
+                    data_mem.put(cur_addr, lbl1);
+                    cur_addr = calc_next_address(cur_addr, cur_size);
+                    lbl1 = lbl2; // lbl2 is the start of the next string
                 }
-
-                cur_addr = calc_next_address(cur_addr, cur_size);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -42,13 +42,13 @@ public class DataSecConverter {
 
     // Converts a hex_string in little endian to its original string
     // Ex:"65746e45"-> Ente
-    public static String[] lnInterpreter_dtaHex(String hex_dtaLn) { // <- THIS IS WHERE TO APPLY MILESTONE’S 3 LOGIC!
+    public static String[] lnInterpreter_dtaHex(String hex_dtaLn) {
         int str_size = hex_dtaLn.length();
-        String[] return_arr = new String[]{"", ""};
+        String[] return_arr = new String[]{"", "empty"};
         String two_hex_digits = "";
         int dec = -1;
         char ascii;
-        boolean isNewString = false;
+        boolean isNewString = false; // determines whether to add to current string or start next one
 
         for (int i = str_size; i >= 2; i = i - 2) { //65746e45 "etnE"
             two_hex_digits = hex_dtaLn.substring(i - 2, i);
@@ -57,6 +57,7 @@ public class DataSecConverter {
 
             if (dec == 0) {
                 isNewString = true;
+                return_arr[1] = ""; // prepares fresh element to add chars to
             } else if (!isNewString) {
                 return_arr[0] += ascii;
             } else {

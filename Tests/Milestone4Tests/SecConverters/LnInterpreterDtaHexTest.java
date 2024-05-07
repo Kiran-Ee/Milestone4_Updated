@@ -24,21 +24,21 @@ class LnInterpreterDtaHexTest {
     String line15 = "4f207369";
     String line16 = "00214444";
 
-    String[] l1 = {"Ente", ""};
-    String[] l2 = {"r yo", ""};
-    String[] l3 = {"ur i", ""};
-    String[] l4 = {"nteg", ""};
-    String[] l5 = {"er: ", ""};
+    String[] l1 = {"Ente", "empty"};
+    String[] l2 = {"r yo", "empty"};
+    String[] l3 = {"ur i", "empty"};
+    String[] l4 = {"nteg", "empty"};
+    String[] l5 = {"er: ", "empty"};
     String[] l6 = {"", "You"};
-    String[] l7 = {"r in", ""};
-    String[] l8 = {"tege", ""};
-    String[] l9 = {"r is", ""};
-    String[] l10 = {" EVE", ""};
+    String[] l7 = {"r in", "empty"};
+    String[] l8 = {"tege", "empty"};
+    String[] l9 = {"r is", "empty"};
+    String[] l10 = {" EVE", "empty"};
     String[] l11 = {"N!","Y"};
-    String[] l12 = {"our ", ""};
-    String[] l13 = {"inte", ""};
-    String[] l14 = {"ger ", ""};
-    String[] l15 = {"is O", ""};
+    String[] l12 = {"our ", "empty"};
+    String[] l13 = {"inte", "empty"};
+    String[] l14 = {"ger ", "empty"};
+    String[] l15 = {"is O", "empty"};
     String[] l16 = {"DD!", ""};
 
 
