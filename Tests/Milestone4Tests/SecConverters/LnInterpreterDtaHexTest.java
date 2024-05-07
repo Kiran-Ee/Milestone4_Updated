@@ -12,7 +12,7 @@ class LnInterpreterDtaHexTest {
     String line3 = "69207275";
     String line4 = "6765746e";
     String line5 = "203a7265";
-    String line6 = "756f5900";
+    String line6 = "756f5900"; //   "u o y /0"
     String line7 = "6e692072";
     String line8 = "65676574";
     String line9 = "73692072";
@@ -24,22 +24,22 @@ class LnInterpreterDtaHexTest {
     String line15 = "4f207369";
     String line16 = "00214444";
 
-    String[] l1 = {"Ente"};
-    String[] l2 = {"r yo"};
-    String[] l3 = {"ur i"};
-    String[] l4 = {"nteg"};
-    String[] l5 = {"er: "};
+    String[] l1 = {"Ente", ""};
+    String[] l2 = {"r yo", ""};
+    String[] l3 = {"ur i", ""};
+    String[] l4 = {"nteg", ""};
+    String[] l5 = {"er: ", ""};
     String[] l6 = {"", "You"};
-    String[] l7 = {"r in"};
-    String[] l8 = {"tege"};
-    String[] l9 = {"r is"};
-    String[] l10 = {" EVE"};
+    String[] l7 = {"r in", ""};
+    String[] l8 = {"tege", ""};
+    String[] l9 = {"r is", ""};
+    String[] l10 = {" EVE", ""};
     String[] l11 = {"N!","Y"};
-    String[] l12 = {"our "};
-    String[] l13 = {"inte"};
-    String[] l14 = {"ger "};
-    String[] l15 = {"is O"};
-    String[] l16 = {"DD!",""};
+    String[] l12 = {"our ", ""};
+    String[] l13 = {"inte", ""};
+    String[] l14 = {"ger ", ""};
+    String[] l15 = {"is O", ""};
+    String[] l16 = {"DD!", ""};
 
 
     @Test
@@ -64,7 +64,8 @@ class LnInterpreterDtaHexTest {
     }
     @Test
     void setLine6() {
-        assertArrayEquals(dsc.lnInterpreter_dtaHex(line6), l6);
+        String[] s = dsc.lnInterpreter_dtaHex(line6);
+        assertArrayEquals(s, l6);
     }
     @Test
     void setLine7() {
