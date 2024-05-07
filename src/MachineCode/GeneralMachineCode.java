@@ -5,17 +5,9 @@ import Operations.*;
 import java.math.BigInteger;
 
 public class GeneralMachineCode {
-    // Master Method
-    // Ex - Arg: {"02b4e822"} -> "00000010101101001110100000100010" -> "sub" -> "sub {opcode: 00, rs: 15, rt: 14, rd: 1d, shmt: 00, funct: 22}
-    public String hex_to_mnenomic(String hex) {
-        String bin = hex_to_binary(hex);
-        String op_type = instruction_finder(bin);
-        return (instruction_factory(bin, op_type));
-    }
-
     // 8 Digit Hex -> 32 Bit Binary
     // Ex - {"02b4e822"} -> "00000010101101001110100000100010"
-    public String hex_to_binary(String hex) {
+    public static String hex_to_binary(String hex) {
         BigInteger dec = new BigInteger(hex, 16);
         String bin = dec.toString(2);
 
@@ -25,7 +17,7 @@ public class GeneralMachineCode {
 
     // 32 binary instruction -> operation type
     // Ex - "00000010101101001110100000100010" -> "sub"
-    public String instruction_finder(String bin) {
+    public static String instruction_finder(String bin) {
         String op_code = bin.substring(0, 6);
         return switch (op_code) {
             case "000000" -> rType_finder(bin);
@@ -44,7 +36,7 @@ public class GeneralMachineCode {
 
     // "instruction_finder" Helper: Finds R-Type instruction based on "func" field
     // Ex - "00000010101101001110100000100010" -> "sub"
-    public String rType_finder(String bin) {
+    public static String rType_finder(String bin) {
         String func = bin.substring(32 - 6);
         return switch (func) {
             case "100000" -> "add";
@@ -59,8 +51,8 @@ public class GeneralMachineCode {
 
     // 32 Bit Binary + Operation Type -> Operation Obj -> Operation's Mnenomic
     // Ex - Args {"00000010101101001110100000100010", "sub"} -> "sub {opcode: 00, rs: 15, rt: 14, rd: 1d, shmt: 00, funct: 22}}
-    public String instruction_factory(String bin, String op_type) {
-        Operation op_obj = switch (op_type) {
+    public static Operation instruction_factory(String bin, String op_type) {
+        return switch (op_type) {
             case "add" -> new Add(bin);
             case "addiu" -> new Addiu(bin);
             case "and" -> new And(bin);
@@ -77,9 +69,7 @@ public class GeneralMachineCode {
             case "sw" -> new Sw(bin);
             case "syscall" -> new Syscall();
             default -> throw new IllegalArgumentException("Entered invalid operation to instruction_factory");
-        };
-//        return op_obj.get_mnenomic();
-        return null; // TODO
+        }; // TODO
     }
 
     // "n" Digit Binary -> "n/4" Digit Hex
