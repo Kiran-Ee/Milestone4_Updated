@@ -15,6 +15,12 @@ public class Main {
 //        String hex_instr = args[0];
 //        String mnenomic = gmc.hex_to_mnenomic(hex_instr);
 //        System.out.println(mnenomic);
-        System.out.print("tsst");
+        int immediate = 5;
+        int result = immediate << 16;
+        System.out.println();
+        System.out.print("Before masking " + result);
+        System.out.println();
+        result = result & 0xFFFF0000;  // Mask to keep only upper 16 bits
+        System.out.print("After masking " + result);
     }
 }

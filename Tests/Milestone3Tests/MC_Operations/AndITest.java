@@ -18,16 +18,16 @@ public class AndITest {
     @Test
     public void good_variable_setting1() { 
         AndI a = new AndI(bin_instr1);
-        assertEquals(expMnem, a.get_mnenomic());
+        assertEquals(expMnem, a.getInstruction());
     }
     @Test
     public void good_variable_setting2() { 
         AndI a = new AndI(bin_instr2);
-        assertEquals(expMnem1, a.get_mnenomic());
+        assertEquals(expMnem1, a.getInstruction());
     }
     @Test
     public void good_variable_setting3() { //"AndI", "$s3", "$t1", "$v1"
         AndI a = new AndI(hex_instr3);
-        assertEquals(expMnem2, a.get_mnenomic());
+        assertEquals(expMnem2, a.getInstruction());
     }
 }

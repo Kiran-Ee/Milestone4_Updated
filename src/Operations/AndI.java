@@ -64,9 +64,4 @@ public class AndI implements Operation{
 
         return "Performed ANDI operation: " + rs + " & " + immediate + " -> " + rt + " = " + result;
     }
-
-    @Override
-    public String get_mnenomic() {
-        return null;
-    }
 }

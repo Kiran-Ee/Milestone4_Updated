@@ -64,10 +64,5 @@ public class Add implements Operation {
         CPU.update_register(rd, sum);
         return "";
     }
-
-    @Override
-    public String get_mnenomic() {
-        return null;
-    }
 }
 

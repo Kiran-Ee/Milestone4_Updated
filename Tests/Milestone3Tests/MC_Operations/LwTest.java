@@ -18,11 +18,11 @@ public class LwTest {
     @Test
     public void good_variable_setting1(){
         Lw l = new Lw(bin_instr);
-        assertEquals(exMem, l.get_mnenomic());
+        assertEquals(exMem, l.getInstruction());
     }
     @Test
     public void good_variable_setting2(){
         Lw l = new Lw(bin_instr1);
-        assertEquals(exMem1, l.get_mnenomic());
+        assertEquals(exMem1, l.getInstruction());
     }
 }

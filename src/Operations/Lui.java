@@ -7,22 +7,18 @@ import java.math.BigInteger;
 import java.util.HashMap;
 
 
-public class Lui implements Operation{
+public class Lui implements Operation {
     GeneralMachineCode gmc = new GeneralMachineCode();
-    private String rs = "";
     private String rt = "";
     private int immediate = -1;
 
     public Lui(String binary) {
         String[] parsedInstruction = binary_parser(binary);
-        if (parsedInstruction.length == 3) {
-            String rs_temp = gmc.bin_toHexImmediate(parsedInstruction[0]);
-            this.rs = CPU.hex_to_reg(gmc.pad_binary(rs_temp, 2 - rs_temp.length()));
-
-            String rt_temp = gmc.bin_toHexImmediate(parsedInstruction[1]);
+        if (parsedInstruction.length == 2) {
+            String rt_temp = gmc.bin_toHexImmediate(parsedInstruction[0]);
             this.rt = CPU.hex_to_reg(gmc.pad_binary(rt_temp, 2 - rt_temp.length()));
 
-            this.immediate = new BigInteger(parsedInstruction[2], 2).intValue();
+            this.immediate = new BigInteger(parsedInstruction[1], 2).intValue();
         } else {
             throw new IllegalArgumentException("Invalid binary instruction format.");
         }
@@ -32,45 +28,32 @@ public class Lui implements Operation{
     @Override
     public String[] binary_parser(String binary_instr) {
         if (binary_instr.length() == 32) {
-            String rs = binary_instr.substring(6, 11);
             String rt = binary_instr.substring(11, 16);
-            String offset = binary_instr.substring(16, 32);
-            return new String[]{rs, rt, offset};
+            String imm = binary_instr.substring(16, 32);
+            return new String[]{rt, imm};
         } else {
             throw new IllegalArgumentException("Invalid binary instruction format.");
         }
     }
 
-//    @Override
-//    public String get_mnenomic() {
-//        return String.format("lui {opcode: %s, rs(base): %s, rt: %s, immediate(offset): %s}", opcode, rs, rt, immediate);
-//    }
-
     @Override
     public String[] getInstruction() {
-        return new String[]{rs, rt, ""+immediate};
+        return new String[]{rt, ""+immediate};
     }
 
     @Override
     public String operate() {
-        HashMap<String, Integer> registers = CPU.get_registers_state();
+        HashMap<String, Integer> hm = CPU.get_registers_state();
+        int rt_int = hm.get(rt);
 
-        int result = immediate << 16;
+        int result = immediate << 16; //shift left 16
+        result = result & 0xFFFF0000;
+        rt_int = rt_int & 0x0000FFFF;
+        rt_int = result | rt_int;
 
-        CPU.update_register(rt, result);
+        CPU.update_register(rt, rt_int);
 
         return "Performed LUI operation: " + immediate + " -> " + rt + " = " + result;
     }
-
-    @Override
-    public String get_mnenomic() {
-        return "";
-    }
 }
 
-    @Override
-    public String get_mnenomic() {
-        return null;
-    }
-
-}

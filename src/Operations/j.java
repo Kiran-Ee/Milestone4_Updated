@@ -42,10 +42,5 @@ public class j implements Operation {
     public String operate() {
         return "jump"; // tells "branch_handler" to jump
     }
-
-    @Override
-    public String get_mnenomic() {
-        return null;
-    }
 }
 

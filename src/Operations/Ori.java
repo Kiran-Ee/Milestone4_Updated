@@ -58,9 +58,4 @@ public class Ori implements Operation{
 
         return "Performed ORI operation: " + rs + " | " + immediate + " -> " + rt + " = " + result;
     }
-
-    @Override
-    public String get_mnenomic() {
-        return null;
-    }
 }

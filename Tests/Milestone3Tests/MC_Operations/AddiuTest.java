@@ -27,16 +27,16 @@ public class AddiuTest {
     @Test
     public void good_variable_setting1(){
         Addiu a = new Addiu(bin_instr1);
-        assertEquals(expMnem, a.get_mnenomic());
+        assertEquals(expMnem, a.getInstruction());
     }
     @Test
     public void good_variable_setting2(){
         Addiu a = new Addiu(bin_instr2);
-        assertEquals(expMnem1, a.get_mnenomic());
+        assertEquals(expMnem1, a.getInstruction());
     }
     @Test
     public void good_variable_setting3(){
         Addiu a = new Addiu(bin_instr3);
-        assertEquals(expMnem2, a.get_mnenomic());
+        assertEquals(expMnem2, a.getInstruction());
     }
 }

@@ -58,9 +58,4 @@ public class Beq implements Operation{
 
         return (Objects.equals(hm.get(rs), hm.get(rt))) ? "branch" : "no branch" ;
     }
-
-    @Override
-    public String get_mnenomic() {
-        return null;
-    }
 }

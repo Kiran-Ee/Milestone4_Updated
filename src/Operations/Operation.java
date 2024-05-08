@@ -6,6 +6,4 @@ Operation {
     String[] binary_parser(String binary_instr);
     String[] getInstruction();
     String operate();
-
-    String get_mnenomic();
 }

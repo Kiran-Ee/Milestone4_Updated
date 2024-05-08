@@ -19,12 +19,12 @@ public class OrTest {
     @Test
     public void good_variable_instr1() {
         Or or = new Or(bin_instr1);
-        assertEquals(expMnem1, or.get_mnenomic());
+        assertEquals(expMnem1, or.getInstruction());
     }
 
     @Test
     public void good_variable_instr2() {
         Or or = new Or(bin_instr2);
-        assertEquals(expMnem2, or.get_mnenomic());
+        assertEquals(expMnem2, or.getInstruction());
     }
 }

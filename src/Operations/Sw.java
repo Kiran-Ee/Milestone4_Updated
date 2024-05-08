@@ -67,9 +67,4 @@ public class Sw implements Operation {
 
         return "Stored value of " + rt + " into memory address " + memoryAddress;
     }
-
-    @Override
-    public String get_mnenomic() {
-        return null;
-    }
 }

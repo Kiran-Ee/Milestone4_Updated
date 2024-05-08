@@ -17,11 +17,11 @@ public class BneTest {
     @Test
     public void good_variable_setting1(){
         Bne bne = new Bne(bne_instr);
-        assertEquals(exMne, bne.get_mnenomic());
+        assertEquals(exMne, bne.getInstruction());
     }
     @Test
     public void good_variable_setting2(){
         Bne bne = new Bne(bne_instr1);
-        assertEquals(exMne1, bne.get_mnenomic());
+        assertEquals(exMne1, bne.getInstruction());
     }
 }

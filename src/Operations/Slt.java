@@ -63,8 +63,4 @@ public class Slt implements Operation{
         return "Performed SLT operation: " + rs + " < " + rt + " -> " + rd + " = " + result;
     }
 
-    @Override
-    public String get_mnenomic() {
-        return null;
-    }
 }

@@ -21,19 +21,19 @@ public class SwTest {
     @Test
     public void good_variable_instr1() {
         Sw s = new Sw(bin_instr1);
-        assertEquals(expMnem1, s.get_mnenomic());
+        assertEquals(expMnem1, s.getInstruction());
     }
 
     @Test
     public void good_variable_instr2() {
         Sw s = new Sw(bin_instr2);
-        assertEquals(expMnem2, s.get_mnenomic());
+        assertEquals(expMnem2, s.getInstruction());
     }
 
     @Test
     public void good_variable_instr13() {
         Sw s = new Sw(bin_instr3);
-        assertEquals(expMnem3, s.get_mnenomic());
+        assertEquals(expMnem3, s.getInstruction());
     }
 
 }

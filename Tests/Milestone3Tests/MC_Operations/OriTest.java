@@ -21,16 +21,16 @@ public class OriTest {
     @Test
     public void good_variable_setting1(){
         Ori o = new Ori(bin_instr1);
-        assertEquals(expMnem1, o.get_mnenomic());
+        assertEquals(expMnem1, o.getInstruction());
     }
     @Test
     public void good_variable_setting2(){
         Ori o = new Ori(bin_instr2);
-        assertEquals(expMnem2, o.get_mnenomic());
+        assertEquals(expMnem2, o.getInstruction());
     }
     @Test
     public void good_variable_setting3(){
         Ori o = new Ori(bin_instr3);
-        assertEquals(expMnem3, o.get_mnenomic());
+        assertEquals(expMnem3, o.getInstruction());
     }
 }

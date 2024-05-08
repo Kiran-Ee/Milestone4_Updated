@@ -17,16 +17,16 @@ public class BeqTest {
     @Test
     public void good_variable_settings1() {
         Beq beq = new Beq(bin_instr);
-        assertEquals(exMnem, beq.get_mnenomic());
+        assertEquals(exMnem, beq.getInstruction());
     }
     @Test
     public void good_variable_settings2() {
         Beq beq = new Beq(bin_instr1);
-        assertEquals(exMnem1, beq.get_mnenomic());
+        assertEquals(exMnem1, beq.getInstruction());
     }
     @Test
     public void good_variable_settings3() {
         Beq beq = new Beq(bin_instr2);
-        assertEquals(exMnem2, beq.get_mnenomic());
+        assertEquals(exMnem2, beq.getInstruction());
     }
 }

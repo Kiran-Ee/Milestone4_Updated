@@ -65,9 +65,4 @@ public class Sub implements Operation {
 
         return "Performed Subtraction: " + rs + " - " + rt + " -> " + rd + " = " + result;
     }
-
-    @Override
-    public String get_mnenomic() {
-        return null;
-    }
 }

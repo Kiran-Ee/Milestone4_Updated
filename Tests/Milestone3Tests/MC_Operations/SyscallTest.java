@@ -13,7 +13,7 @@ public class SyscallTest {
     @Test
     public void good_variable_instr(){
         Syscall s = new Syscall();
-        assertEquals(expMnem, s.get_mnenomic());
+        assertEquals(expMnem, s.getInstruction());
     }
 
 }

@@ -40,11 +40,6 @@ public class Bne implements Operation{
         }
     }
 
-//    @Override
-//    public String get_mnenomic() {
-//        return String.format("bne {opcode: %s, rs(base): %s, rt: %s, immediate(offset): %s}", opcode, rs, rt, offset);
-//    }
-
     @Override
     public String[] getInstruction() {
         return new String[]{rs, rt, ""+offset};
@@ -55,10 +50,5 @@ public class Bne implements Operation{
         HashMap<String, Integer> hm = CPU.get_registers_state();
 
         return (!Objects.equals(hm.get(rs), hm.get(rt))) ? "branch" : "no branch" ;
-    }
-
-    @Override
-    public String get_mnenomic() {
-        return null;
     }
 }

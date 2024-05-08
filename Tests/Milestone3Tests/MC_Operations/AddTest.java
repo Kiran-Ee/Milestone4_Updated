@@ -31,16 +31,16 @@ public class AddTest {
     @Test
     public void good_variable_setting1() { // "add", "$s0", "$s1", "t7"
         Add a = new Add(bin_instr1);
-        assertEquals(expMnem, a.get_mnenomic());
+        assertEquals(expMnem, a.getInstruction());
     }
     @Test
     public void good_variable_setting2() { //"add", "$t0", "$t0", "$t0"
         Add a = new Add(bin_instr2);
-        assertEquals(expMnem1, a.get_mnenomic());
+        assertEquals(expMnem1, a.getInstruction());
     }
     @Test
     public void good_variable_setting3() { //"add", "$s3", "$t1", "$v1"
         Add a = new Add(hex_instr3);
-        assertEquals(expMnem2, a.get_mnenomic());
+        assertEquals(expMnem2, a.getInstruction());
     }
 } //end: class addTest

@@ -21,18 +21,18 @@ public class SubTest {
     @Test
     public void good_variable_instr1() {
         Sub sub = new Sub(bin_instr1);
-        assertEquals(expMnem1, sub.get_mnenomic());
+        assertEquals(expMnem1, sub.getInstruction());
     }
 
     @Test
     public void good_variable_instr2() {
         Sub sub = new Sub(bin_instr2);
-        assertEquals(expMnem2, sub.get_mnenomic());
+        assertEquals(expMnem2, sub.getInstruction());
     }
 
     @Test
     public void good_variable_instr13() {
         Sub sub = new Sub(bin_instr3);
-        assertEquals(expMnem3, sub.get_mnenomic());
+        assertEquals(expMnem3, sub.getInstruction());
     }
 }

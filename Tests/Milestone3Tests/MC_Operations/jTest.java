@@ -15,6 +15,6 @@ public class jTest {
     @Test
     public void good_variable_setting1(){
         j ju = new j(bin_instr);
-        assertEquals(exMnem, ju.get_mnenomic());
+        assertEquals(exMnem, ju.getInstruction());
     }
 }

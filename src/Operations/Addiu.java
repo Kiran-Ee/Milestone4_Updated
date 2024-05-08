@@ -41,12 +41,6 @@ public class Addiu implements Operation{
         }
     }
 
-//    @Override
-//    public String get_mnenomic() {
-//        return String.format("addiu {opcode: %s, rs(base): %s, rt: %s, immediate(offset): %s}",
-//                opcode, rs, rt, offset);
-//    }
-
     @Override
     public String[] getInstruction() {
         return new String[]{rs, rt, ""+offset};
@@ -63,11 +57,5 @@ public class Addiu implements Operation{
 
         return "Performed addiu operation: " + rs + " + " + offset + " -> " + rt + " = " + result;
 
-    }
-
-    @Override
-    public String get_mnenomic() {
-        return String.format("addiu {opcode: %s, rs(base): %s, rt: %s, immediate(offset): %s}",
-                "opcode_value", rs, rt, offset);
     }
 }

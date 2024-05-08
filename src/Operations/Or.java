@@ -64,9 +64,4 @@ public class Or implements Operation {
 
         return "Performed OR operation: " + rs + " | " + rt + " -> " + rd + " = " + result;
     }
-
-    @Override
-    public String get_mnenomic() {
-        return null;
-    }
 }

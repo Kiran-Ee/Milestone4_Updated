@@ -15,12 +15,12 @@ public class SltTest {
     @Test
     public void good_variable_instr1() {
         Slt slt = new Slt(bin_instr1);
-        assertEquals(expMnem1, slt.get_mnenomic());
+        assertEquals(expMnem1, slt.getInstruction());
     }
 
     @Test
     public void good_variable_instr2() {
         Slt slt = new Slt(bin_instr2);
-        assertEquals(expMnem2, slt.get_mnenomic());
+        assertEquals(expMnem2, slt.getInstruction());
     }
 }

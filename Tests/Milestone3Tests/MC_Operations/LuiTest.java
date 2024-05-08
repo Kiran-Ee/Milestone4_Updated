@@ -16,16 +16,16 @@ public class LuiTest {
     @Test
     public void good_variable_setting1(){
         Lui lui = new Lui(bin_instr);
-        assertEquals(exMem, lui.get_mnenomic());
+        assertEquals(exMem, lui.getInstruction());
     }
     @Test
     public void good_variable_setting2(){
         Lui lui = new Lui(bin_instr1);
-        assertEquals(exMem1, lui.get_mnenomic());
+        assertEquals(exMem1, lui.getInstruction());
     }
     @Test
     public void good_variable_setting3(){
         Lui lui = new Lui(bin_instr2);
-        assertEquals(exMem2, lui.get_mnenomic());
+        assertEquals(exMem2, lui.getInstruction());
     }
 }

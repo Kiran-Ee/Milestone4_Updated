@@ -28,17 +28,17 @@ public class AndTest {
     @Test
     public void good_variable_setting1(){
         And a = new And(bin_instr1);
-        assertEquals(exMne, a.get_mnenomic());
+        assertEquals(exMne, a.getInstruction());
     }
 
     @Test
     public void good_variable_setting2(){
         And a = new And(bin_instr2);
-        assertEquals(exMne1, a.get_mnenomic());
+        assertEquals(exMne1, a.getInstruction());
     }
     @Test
     public void good_variable_setting3(){
         And a = new And(bin_instr3);
-        assertEquals(exMne2, a.get_mnenomic());
+        assertEquals(exMne2, a.getInstruction());
     }
 }

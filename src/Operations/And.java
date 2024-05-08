@@ -58,9 +58,4 @@ public class And implements Operation{
 
         return "Performed AND operation: " + rs + " & " + rt + " -> " + rd + " = " + result;
     }
-
-    @Override
-    public String get_mnenomic() {
-        return null;
-    }
 }
