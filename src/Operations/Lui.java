@@ -4,6 +4,7 @@ import CPU.CPU;
 import MachineCode.GeneralMachineCode;
 
 import java.math.BigInteger;
+import java.util.HashMap;
 
 
 public class Lui implements Operation{
@@ -52,8 +53,20 @@ public class Lui implements Operation{
 
     @Override
     public String operate() {
-        return null;
+        HashMap<String, Integer> registers = CPU.get_registers_state();
+
+        int result = immediate << 16;
+
+        CPU.update_register(rt, result);
+
+        return "Performed LUI operation: " + immediate + " -> " + rt + " = " + result;
     }
+
+    @Override
+    public String get_mnenomic() {
+        return "";
+    }
+}
 
     @Override
     public String get_mnenomic() {

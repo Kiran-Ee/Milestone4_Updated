@@ -3,6 +3,8 @@ package Operations;
 import CPU.CPU;
 import MachineCode.GeneralMachineCode;
 
+import java.util.HashMap;
+
 
 public class Or implements Operation {
     GeneralMachineCode gmc = new GeneralMachineCode();
@@ -51,7 +53,16 @@ public class Or implements Operation {
 
     @Override
     public String operate() {
-        return null;
+        HashMap<String, Integer> registers = CPU.get_registers_state();
+
+        int rsValue = registers.get(rs);
+        int rtValue = registers.get(rt);
+
+        int result = rsValue | rtValue;
+
+        CPU.update_register(rd, result);
+
+        return "Performed OR operation: " + rs + " | " + rt + " -> " + rd + " = " + result;
     }
 
     @Override

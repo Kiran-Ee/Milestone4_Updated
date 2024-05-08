@@ -4,6 +4,7 @@ import CPU.CPU;
 import MachineCode.GeneralMachineCode;
 
 import java.math.BigInteger;
+import java.util.HashMap;
 
 
 public class Sw implements Operation {
@@ -54,7 +55,17 @@ public class Sw implements Operation {
     @Override
     public String operate() {
         //1. get the value of the base register
-        return null;
+        HashMap<String, Integer> registers = CPU.get_registers_state();
+        int rtValue = registers.get(rt);
+
+        // Calculate the memory address based on base register and offset
+        int baseValue = registers.get(base);
+        int memoryAddress = baseValue + offset;
+
+        // Store the value of register rt into memory at the calculated address
+       //TODO
+
+        return "Stored value of " + rt + " into memory address " + memoryAddress;
     }
 
     @Override

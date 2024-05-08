@@ -4,6 +4,7 @@ import CPU.CPU;
 import MachineCode.GeneralMachineCode;
 
 import java.math.BigInteger;
+import java.util.HashMap;
 
 public class Ori implements Operation{
     GeneralMachineCode gmc = new GeneralMachineCode();
@@ -47,7 +48,15 @@ public class Ori implements Operation{
 
     @Override
     public String operate() {
-        return null;
+        HashMap<String, Integer> registers = CPU.get_registers_state();
+
+        int rsValue = registers.get(rs);
+
+        int result = rsValue | immediate;
+
+        CPU.update_register(rt, result);
+
+        return "Performed ORI operation: " + rs + " | " + immediate + " -> " + rt + " = " + result;
     }
 
     @Override

@@ -5,6 +5,7 @@ import MachineCode.GeneralMachineCode;
 import CPU.CPU;
 
 import java.math.BigInteger;
+import java.util.HashMap;
 
 public class AndI implements Operation{
     GeneralMachineCode gmc = new GeneralMachineCode();
@@ -54,7 +55,14 @@ public class AndI implements Operation{
 
     @Override
     public String operate() {
-        return null;
+        HashMap<String, Integer> registers = CPU.get_registers_state();
+
+        int rsValue = registers.get(rs);
+        int result = rsValue & immediate;
+
+        CPU.update_register(rt, result);
+
+        return "Performed ANDI operation: " + rs + " & " + immediate + " -> " + rt + " = " + result;
     }
 
     @Override

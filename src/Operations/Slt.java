@@ -2,6 +2,8 @@ package Operations;
 import CPU.CPU;
 import MachineCode.GeneralMachineCode;
 
+import java.util.HashMap;
+
 public class Slt implements Operation{
     GeneralMachineCode gmc = new GeneralMachineCode();
     private String rs = "";
@@ -49,7 +51,16 @@ public class Slt implements Operation{
 
     @Override
     public String operate() {
-        return null;
+        HashMap<String, Integer> registers = CPU.get_registers_state();
+
+        int rsValue = registers.get(rs);
+        int rtValue = registers.get(rt);
+
+        int result = (rsValue < rtValue) ? 1 : 0;
+
+        CPU.update_register(rd, result);
+
+        return "Performed SLT operation: " + rs + " < " + rt + " -> " + rd + " = " + result;
     }
 
     @Override

@@ -6,6 +6,7 @@ import MachineCode.GeneralMachineCode;
 
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Addiu implements Operation{
     GeneralMachineCode gmc = new GeneralMachineCode();
@@ -53,11 +54,20 @@ public class Addiu implements Operation{
 
     @Override
     public String operate() {
-        return null;
+        HashMap<String, Integer> registers = CPU.get_registers_state();
+
+        int rsValue = registers.get(rs);
+        int result = rsValue + offset;
+
+        CPU.update_register(rt, result);
+
+        return "Performed addiu operation: " + rs + " + " + offset + " -> " + rt + " = " + result;
+
     }
 
     @Override
     public String get_mnenomic() {
-        return null;
+        return String.format("addiu {opcode: %s, rs(base): %s, rt: %s, immediate(offset): %s}",
+                "opcode_value", rs, rt, offset);
     }
 }
