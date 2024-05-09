@@ -2,7 +2,6 @@ package Operations;
 
 import CPU.CPU;
 import MachineCode.GeneralMachineCode;
-import SecConverters.DataSecConverter;
 
 import java.math.BigInteger;
 
@@ -16,10 +15,10 @@ public class Lw implements Operation {
     public Lw(String binary) {
         String[] parsedInstruction = binary_parser(binary);
         if (parsedInstruction.length == 3) {
-            String rs_temp = gmc.bin_toHexImmediate(parsedInstruction[0]);
+            String rs_temp = gmc.bin_to_hex(parsedInstruction[0]);
             this.base = CPU.hex_to_reg(gmc.pad_binary(rs_temp, 2 - rs_temp.length()));
 
-            String rt_temp = gmc.bin_toHexImmediate(parsedInstruction[1]);
+            String rt_temp = gmc.bin_to_hex(parsedInstruction[1]);
             this.rt = CPU.hex_to_reg(gmc.pad_binary(rt_temp, 2 - rt_temp.length()));
 
             this.offset = new BigInteger(parsedInstruction[2], 2).intValue(); // dec immediate
@@ -50,7 +49,7 @@ public class Lw implements Operation {
     public String operate() {
         int base_dec = CPU.get_registers_state().get(base); // should contain address of hex label in decimal
         int return_dec = base_dec + offset;
-        // String return_hex = GeneralMachineCode.bin_toHexImmediate(Integer.toBinaryString(return_dec));
+        // String return_hex = GeneralMachineCode.bin_to_hex(Integer.toBinaryString(return_dec));
         // String lbl = DataSecConverter.data_mem.get(return_hex);
         //int lbl_ASCII = CPU.string_to_ascii(lbl);
 

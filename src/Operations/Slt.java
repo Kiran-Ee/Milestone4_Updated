@@ -13,13 +13,13 @@ public class Slt implements Operation{
     public Slt(String binary){
         String[] parsedInstruction = binary_parser(binary);
         if (parsedInstruction.length == 3) {
-            String rs_temp = gmc.bin_toHexImmediate(parsedInstruction[0]);
+            String rs_temp = gmc.bin_to_hex(parsedInstruction[0]);
             this.rs = CPU.hex_to_reg(gmc.pad_binary(rs_temp, 2 - rs_temp.length()));
 
-            String rt_temp = gmc.bin_toHexImmediate(parsedInstruction[1]);
+            String rt_temp = gmc.bin_to_hex(parsedInstruction[1]);
             this.rt = CPU.hex_to_reg(gmc.pad_binary(rt_temp, 2 - rt_temp.length()));
 
-            String rd_temp = gmc.bin_toHexImmediate(parsedInstruction[2]);
+            String rd_temp = gmc.bin_to_hex(parsedInstruction[2]);
             this.rd = CPU.hex_to_reg(gmc.pad_binary(rd_temp, 2 - rd_temp.length()));
         } else {
             throw new IllegalArgumentException("Invalid binary instruction format.");

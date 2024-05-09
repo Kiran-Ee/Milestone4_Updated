@@ -38,54 +38,54 @@ class BinToHexImmediateTest {
 
     @Test
     void setHex1() {
-        assertEquals(gmc.bin_toHexImmediate(bin1), (hex1));
+        assertEquals(gmc.bin_to_hex(bin1), (hex1));
     }
     @Test
     void setHex2() {
-        assertEquals(gmc.bin_toHexImmediate(bin2), (hex2));
+        assertEquals(gmc.bin_to_hex(bin2), (hex2));
     }
     @Test
     void setHex3() {
-        assertEquals(gmc.bin_toHexImmediate(bin3), (hex3));
+        assertEquals(gmc.bin_to_hex(bin3), (hex3));
     }
     @Test
     void setHex4() {
-        assertEquals(gmc.bin_toHexImmediate(bin4), (hex4));
+        assertEquals(gmc.bin_to_hex(bin4), (hex4));
     }
     @Test
     void setHex5() {
-        assertEquals(gmc.bin_toHexImmediate(bin5), (hex5));
+        assertEquals(gmc.bin_to_hex(bin5), (hex5));
     }
     @Test
     void setHex6() {
-        assertEquals(gmc.bin_toHexImmediate(bin6), (hex6));
+        assertEquals(gmc.bin_to_hex(bin6), (hex6));
     }
     @Test
     void setHex7() {
-        assertEquals(gmc.bin_toHexImmediate(bin7), (hex7));
+        assertEquals(gmc.bin_to_hex(bin7), (hex7));
     }
     @Test
     void setHex8() {
-        assertEquals(gmc.bin_toHexImmediate(bin8), (hex8));
+        assertEquals(gmc.bin_to_hex(bin8), (hex8));
     }
     @Test
     void setHex9() {
-        assertEquals(gmc.bin_toHexImmediate(bin9), (hex9));
+        assertEquals(gmc.bin_to_hex(bin9), (hex9));
     }
     @Test
     void setHex10() {
-        assertEquals(gmc.bin_toHexImmediate(bin10), (hex10));
+        assertEquals(gmc.bin_to_hex(bin10), (hex10));
     }
     @Test
     void setHex11() {
-        assertEquals(gmc.bin_toHexImmediate(bin11), (hex11));
+        assertEquals(gmc.bin_to_hex(bin11), (hex11));
     }
     @Test
     void setHex12() {
-        assertEquals(gmc.bin_toHexImmediate(bin12), (hex12));
+        assertEquals(gmc.bin_to_hex(bin12), (hex12));
     }
     @Test
     void setHex13() {
-        assertEquals(gmc.bin_toHexImmediate(bin13), (hex13));
+        assertEquals(gmc.bin_to_hex(bin13), (hex13));
     }
 }

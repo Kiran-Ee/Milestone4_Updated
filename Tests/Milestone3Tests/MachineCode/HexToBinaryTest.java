@@ -38,54 +38,54 @@ class HexToBinaryTest {
 
     @Test
     void setHex1() {
-        assertEquals(bin1, gmc.hex_to_binary(hex1));
+        assertEquals(bin1, gmc.hex_to_bin(hex1));
     }
     @Test
     void setHex2() {
-        assertEquals(bin2, gmc.hex_to_binary(hex2));
+        assertEquals(bin2, gmc.hex_to_bin(hex2));
     }
     @Test
     void setHex3() {
-        assertEquals(bin3, gmc.hex_to_binary(hex3));
+        assertEquals(bin3, gmc.hex_to_bin(hex3));
     }
     @Test
     void setHex4() {
-        assertEquals(bin4, gmc.hex_to_binary(hex4));
+        assertEquals(bin4, gmc.hex_to_bin(hex4));
     }
     @Test
     void setHex5() {
-        assertEquals(bin5, gmc.hex_to_binary(hex5));
+        assertEquals(bin5, gmc.hex_to_bin(hex5));
     }
     @Test
     void setHex6() {
-        assertEquals(bin6, gmc.hex_to_binary(hex6));
+        assertEquals(bin6, gmc.hex_to_bin(hex6));
     }
     @Test
     void setHex7() {
-        assertEquals(bin7, gmc.hex_to_binary(hex7));
+        assertEquals(bin7, gmc.hex_to_bin(hex7));
     }
     @Test
     void setHex8() {
-        assertEquals(bin8, gmc.hex_to_binary(hex8));
+        assertEquals(bin8, gmc.hex_to_bin(hex8));
     }
     @Test
     void setHex9() {
-        assertEquals(bin9, gmc.hex_to_binary(hex9));
+        assertEquals(bin9, gmc.hex_to_bin(hex9));
     }
     @Test
     void setHex10() {
-        assertEquals(bin10, gmc.hex_to_binary(hex10));
+        assertEquals(bin10, gmc.hex_to_bin(hex10));
     }
     @Test
     void setHex11() {
-        assertEquals(bin11, gmc.hex_to_binary(hex11));
+        assertEquals(bin11, gmc.hex_to_bin(hex11));
     }
     @Test
     void setHex12() {
-        assertEquals(bin12, gmc.hex_to_binary(hex12));
+        assertEquals(bin12, gmc.hex_to_bin(hex12));
     }
     @Test
     void setHex13() {
-        assertEquals(bin13, gmc.hex_to_binary(hex13));
+        assertEquals(bin13, gmc.hex_to_bin(hex13));
     }
 }

@@ -1,14 +1,12 @@
 package SecConverters;
 
 import MachineCode.GeneralMachineCode;
-import Operations.Add;
 import Operations.Operation;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 public class TextSecConverter {
     public static Operation[] text_mem = null; // will need to dynamically set size
@@ -28,7 +26,7 @@ public class TextSecConverter {
     }
 
     public static Operation lnInterpreter_txtHex(String hex_txtLn) { // <- THIS IS WHERE TO APPLY MILESTONE’S 3 LOGIC!
-        String bin_txtLn = GeneralMachineCode.hex_to_binary(hex_txtLn);
+        String bin_txtLn = GeneralMachineCode.hex_to_bin(hex_txtLn);
         String op_type = GeneralMachineCode.instruction_finder(bin_txtLn);
         return  GeneralMachineCode.instruction_factory(bin_txtLn, op_type);
     }

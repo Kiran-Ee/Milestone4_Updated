@@ -18,10 +18,10 @@ public class Sw implements Operation {
     public Sw(String binary) {
         String[] parsedInstruction = binary_parser(binary);
         if (parsedInstruction.length == 3) {
-            String rs_temp = gmc.bin_toHexImmediate(parsedInstruction[0]);
+            String rs_temp = gmc.bin_to_hex(parsedInstruction[0]);
             this.base =  CPU.hex_to_reg(gmc.pad_binary(rs_temp, 2 - rs_temp.length()));
 
-            String rt_temp = gmc.bin_toHexImmediate(parsedInstruction[1]);
+            String rt_temp = gmc.bin_to_hex(parsedInstruction[1]);
             this.rt =  CPU.hex_to_reg(gmc.pad_binary(rt_temp, 2 - rt_temp.length()));
 
             this.offset = new BigInteger(parsedInstruction[2]).intValue();
@@ -64,7 +64,7 @@ public class Sw implements Operation {
         // 2. Calculate the memory address based on base register and offset
         int result_addr_dec = base_dec + offset;
         String result_addr_bin = Integer.toBinaryString(result_addr_dec);
-        String result_addr_hex = GeneralMachineCode.bin_toHexImmediate(result_addr_bin);
+        String result_addr_hex = GeneralMachineCode.bin_to_hex(result_addr_bin);
 
         // 3. Store the value of register rt INTO MEMORY at the calculated address
         DataSecConverter.data_mem.put(result_addr_hex, String.valueOf(rt_dec));

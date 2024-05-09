@@ -5,16 +5,6 @@ import Operations.*;
 import java.math.BigInteger;
 
 public class GeneralMachineCode {
-    // 8 Digit Hex -> 32 Bit Binary
-    // Ex - {"02b4e822"} -> "00000010101101001110100000100010"
-    public static String hex_to_binary(String hex) {
-        BigInteger dec = new BigInteger(hex, 16);
-        String bin = dec.toString(2);
-
-        int padding = 32 - bin.length();
-        return pad_binary(bin, padding);
-    }
-
     // 32 binary instruction -> operation type
     // Ex - "00000010101101001110100000100010" -> "sub"
     public static String instruction_finder(String bin) {
@@ -72,9 +62,19 @@ public class GeneralMachineCode {
         }; // TODO
     }
 
+    // 8 Digit Hex -> 32 Bit Binary
+    // Ex - {"02b4e822"} -> "00000010101101001110100000100010"
+    public static String hex_to_bin(String hex) { //UNSIGNED
+        BigInteger dec = new BigInteger(hex, 16);
+        String bin = dec.toString(2);
+
+        int padding = 32 - bin.length();
+        return pad_binary(bin, padding);
+    }
+
     // "n" Digit Binary -> "n/4" Digit Hex
     // Ex - "00000010101101001110100000100010" -> "02B4E822"
-    public static String bin_toHexImmediate(String bin_imm) {
+    public static String bin_to_hex(String bin_imm) { //unsigned
         int padding = 4 - (bin_imm.length() % 4);
         if (padding != 4) // Ensure the length of the binary string is a multiple of 4 by padding with leading zeros
             bin_imm = "0".repeat(padding) + bin_imm;
@@ -83,9 +83,9 @@ public class GeneralMachineCode {
         for (int i = 0; i < bin_imm.length(); i += 4) {
             String group = bin_imm.substring(i, i + 4);
 
-            BigInteger dec_unsigned = new BigInteger(group, 2);
+            BigInteger dec_signed = new BigInteger(group, 2);
 
-            hexBuilder += dec_unsigned.toString(16);
+            hexBuilder += dec_signed.toString(16);
         }
 
         return hexBuilder.toLowerCase();
@@ -100,17 +100,41 @@ public class GeneralMachineCode {
         return binary_instr;
     }
 
-    // Used by operations that need immediates to be in "signed dec" because they're NOT UNSIGNED
-    public static int bin_to_signedDec(String bin) {
-        int unsignedDecimal = Integer.parseInt(bin, 2);
+    public static int bin_to_dec(String bin, boolean isSigned) {
+        int dec = new BigInteger(bin, 2).intValue(); //unsigned conversion
 
-        int bin_signed = -1;
-        if (bin.charAt(0) == '1') {
-            bin_signed = -((1 << bin.length()) - unsignedDecimal);
-        } else {
-            bin_signed = unsignedDecimal;
+        if (isSigned) { //signed conversion
+            String invertedBinary = "";
+            for (char bit : bin.toCharArray()) {
+                invertedBinary += (bit == '0') ? '1' : '0';
+            }
+            // Convert inverted binary to decimal and add 1 to complete two's complement
+            int invertedDecimal = Integer.parseInt(invertedBinary, 2) + 1;
+            // Return the negative of the invertedDecimal
+            return -invertedDecimal;
         }
+        return dec;
+    }
 
-        return bin_signed;
+
+    public static String dec_to_bin(int dec, boolean signed) {
+        String binary = "";
+        int dividand = dec;
+        int remainder = 0;
+
+        if (signed || dec < 0) {
+            binary = Integer.toBinaryString(dec); //  correctly converts signed decimals to binary
+        } else {
+            if (dec != 0) {
+                while (dividand > 0) { // manually convert decimal to binary string bc java's .parseInt() method doesn't work for unsigned
+                    remainder = dividand % 2;
+                    dividand = (int) dividand / 2;
+                    binary = remainder + binary; // creating bitString
+                }
+            } else {
+                binary = "0"; // special case when given dec=0, loop above never enters
+            }
+        }
+        return binary;
     }
 }

@@ -5,7 +5,6 @@ import MachineCode.GeneralMachineCode;
 
 
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class Addiu implements Operation{
@@ -18,10 +17,10 @@ public class Addiu implements Operation{
     {
         String[] parsedInstruction = binary_parser(binary);
         if (parsedInstruction.length == 3) {
-            String rs_temp = gmc.bin_toHexImmediate(parsedInstruction[0]);
+            String rs_temp = gmc.bin_to_hex(parsedInstruction[0]);
             this.rs = CPU.hex_to_reg(gmc.pad_binary(rs_temp, 2 - rs_temp.length()));
 
-            String rt_temp = gmc.bin_toHexImmediate(parsedInstruction[1]);
+            String rt_temp = gmc.bin_to_hex(parsedInstruction[1]);
             this.rt = CPU.hex_to_reg(gmc.pad_binary(rt_temp, 2 - rt_temp.length()));
 
             this.offset = new BigInteger(parsedInstruction[2], 2).intValue();

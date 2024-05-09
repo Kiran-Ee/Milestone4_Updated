@@ -3,11 +3,10 @@ package Operations;
 import CPU.CPU;
 import MachineCode.GeneralMachineCode;
 
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Objects;
 
-import static MachineCode.GeneralMachineCode.bin_to_signedDec;
+import static MachineCode.GeneralMachineCode.bin_to_dec;
 
 public class Bne implements Operation{
     GeneralMachineCode gmc = new GeneralMachineCode();
@@ -18,13 +17,13 @@ public class Bne implements Operation{
     public Bne(String binary){
         String[] parsedInstruction = binary_parser(binary);
         if (parsedInstruction.length == 3) {
-            String rs_temp = gmc.bin_toHexImmediate(parsedInstruction[0]);
+            String rs_temp = gmc.bin_to_hex(parsedInstruction[0]);
             this.rs = CPU.hex_to_reg(gmc.pad_binary(rs_temp, 2 - rs_temp.length()));
 
-            String rt_temp = gmc.bin_toHexImmediate(parsedInstruction[1]);
+            String rt_temp = gmc.bin_to_hex(parsedInstruction[1]);
             this.rt = CPU.hex_to_reg(gmc.pad_binary(rt_temp, 2 - rt_temp.length()));
 
-            this.offset = bin_to_signedDec(parsedInstruction[2]);
+            this.offset = bin_to_dec(parsedInstruction[2], true);
         } else {
             throw new IllegalArgumentException("Invalid binary instruction format.");
         }

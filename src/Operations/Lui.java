@@ -6,19 +6,26 @@ import MachineCode.GeneralMachineCode;
 import java.math.BigInteger;
 import java.util.HashMap;
 
+import static MachineCode.GeneralMachineCode.bin_to_dec;
+import static MachineCode.GeneralMachineCode.dec_to_bin;
+
 
 public class Lui implements Operation {
     GeneralMachineCode gmc = new GeneralMachineCode();
     private String rt = "";
-    private int immediate = -1;
+    private int immediate = -1; //unsigned dec
 
     public Lui(String binary) {
         String[] parsedInstruction = binary_parser(binary);
         if (parsedInstruction.length == 2) {
-            String rt_temp = gmc.bin_toHexImmediate(parsedInstruction[0]);
+            String rt_temp = gmc.bin_to_hex(parsedInstruction[0]);
             this.rt = CPU.hex_to_reg(gmc.pad_binary(rt_temp, 2 - rt_temp.length()));
 
-            this.immediate = new BigInteger(parsedInstruction[1], 2).intValue();
+            int imm_temp = bin_to_dec(parsedInstruction[1], false);
+            if (imm_temp < 0 || imm_temp > 0xFFFF)
+                throw new IllegalArgumentException("Sent immediate out of range of Lui: [0,FFFF]");
+            else
+                this.immediate = imm_temp;
         } else {
             throw new IllegalArgumentException("Invalid binary instruction format.");
         }
@@ -38,15 +45,17 @@ public class Lui implements Operation {
 
     @Override
     public String[] getInstruction() {
-        return new String[]{rt, ""+immediate};
+        return new String[]{rt, "" + immediate};
     }
 
     @Override
     public String operate() {
         HashMap<String, Integer> hm = CPU.get_registers_state();
         int result = immediate << 16; // Load immediate into upper 16 bits, lower 16 bits are zero
-        CPU.update_register(rt, result);
-        return  "Performed LUI operation:  " + immediate +   "->   "+ rt +"   =   "+ result;
+        result = bin_to_dec(dec_to_bin(result, false),false); // making sure it's in unsigned
+
+        CPU.update_register(rt, result); //this actually stores a negative value in register
+        return "Performed LUI operation:  " + immediate + "->   " + rt + "   =   " + result;
     }
 }
 
