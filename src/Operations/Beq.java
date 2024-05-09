@@ -41,11 +41,6 @@ public class Beq implements Operation{
         }
     }
 
-//    @Override
-//    public String get_mnenomic() {
-//        return String.format("beq {opcode: %s, rs(base): %s, rt: %s, immediate(offset): %s}",
-//                opcode, rs, rt, offset);
-//    }
 
     @Override
     public String[] getInstruction() {

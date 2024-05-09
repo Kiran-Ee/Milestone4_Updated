@@ -2,6 +2,7 @@ package Operations;
 
 import CPU.CPU;
 import MachineCode.GeneralMachineCode;
+import SecConverters.DataSecConverter;
 
 import java.math.BigInteger;
 import java.util.HashMap;
@@ -49,22 +50,25 @@ public class Sw implements Operation {
 
     @Override
     public String[] getInstruction() {
-        return new String[]{base, rt, ""+offset};
+        return new String[]{base, rt, "" + offset};
     }
 
     @Override
     public String operate() {
-        //1. get the value of the base register
         HashMap<String, Integer> registers = CPU.get_registers_state();
-        int rtValue = registers.get(rt);
 
-        // Calculate the memory address based on base register and offset
-        int baseValue = registers.get(base);
-        int memoryAddress = baseValue + offset;
+        // 1. get the value of the base register & rt
+        int rt_dec = registers.get(rt);
+        int base_dec = registers.get(base);
 
-        // Store the value of register rt into memory at the calculated address
-       //TODO
+        // 2. Calculate the memory address based on base register and offset
+        int result_addr_dec = base_dec + offset;
+        String result_addr_bin = Integer.toBinaryString(result_addr_dec);
+        String result_addr_hex = GeneralMachineCode.bin_toHexImmediate(result_addr_bin);
 
-        return "Stored value of " + rt + " into memory address " + memoryAddress;
+        // 3. Store the value of register rt INTO MEMORY at the calculated address
+        DataSecConverter.data_mem.put(result_addr_hex, String.valueOf(rt_dec));
+
+        return "Stored value of " + rt + " into memory address " + result_addr_hex;
     }
 }

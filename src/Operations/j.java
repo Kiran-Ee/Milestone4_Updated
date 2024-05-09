@@ -28,10 +28,6 @@ public class j implements Operation {
         }
     }
 
-//    @Override
-//    public String get_mnenomic() {
-//        return String.format("j {opcode: %s, index: %s}", opcode, instr_index);
-//    }
 
     @Override
     public String[] getInstruction() {

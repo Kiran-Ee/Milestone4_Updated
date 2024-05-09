@@ -44,16 +44,9 @@ public class Lui implements Operation {
     @Override
     public String operate() {
         HashMap<String, Integer> hm = CPU.get_registers_state();
-        int rt_int = hm.get(rt);
-
-        int result = immediate << 16; //shift left 16
-        result = result & 0xFFFF0000;
-        rt_int = rt_int & 0x0000FFFF;
-        rt_int = result | rt_int;
-
-        CPU.update_register(rt, rt_int);
-
-        return "Performed LUI operation: " + immediate + " -> " + rt + " = " + result;
+        int result = immediate << 16; // Load immediate into upper 16 bits, lower 16 bits are zero
+        CPU.update_register(rt, result);
+        return  "Performed LUI operation:  " + immediate +   "->   "+ rt +"   =   "+ result;
     }
 }
 

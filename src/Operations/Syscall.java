@@ -23,7 +23,7 @@ public class Syscall implements Operation{
     }
 
     @Override
-    public String operate() { // USE SYSCALL HANDLER!
-        return null;
+    public String operate() { // "run_program" uses syscall_handler for special cases.
+        return "Sycall operated.";
     }
 }

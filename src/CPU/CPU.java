@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 // Keeps track of registers, runs program
 public class CPU {
-    public static int zero = -1; //int approach in 10-digit decimal!
+    public static int zero = 0; //int approach in 10-digit decimal!
     public static int at = -1;
     public static int a0 = -1;
     public static int a1 = -1;
@@ -301,4 +301,14 @@ public class CPU {
         }
         return return_string;
     }
+
+    public static int string_to_ascii(String str) {
+        int asciiValue = 0;
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            asciiValue = asciiValue * 10 + (int) c;
+        }
+        return asciiValue;
+    }
+
 }

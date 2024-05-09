@@ -13,6 +13,8 @@
     - Keep track of "PC" (in a loop, this is just the index of the string array of instructions)
     ... jump (j): change the "PC" to the exact value of the instruction in the Data structure
     ... Branch (bne, beq): change the "PC" to the next instruction's index + offset
- 5] Is LW word addressing or byte addressing ?
- 6] How to deal with Sw? -
+ 5] LW: how to deal with "non-aligned words" (example of EOO) + IS IT STORING AND ADDRESS OR THE ACTUAL VALUE?
+    - Value being put in register.
+ 6] How to deal with Sw - I have values stored as int but my memory can hold Strings ... do i just have to convert the int's to ASCIIs in that the rt register and put that in memory (but if it's bigger than 1 register this won't work)?
+    - NO STRINGS FOR THIS ASSIGNMENT (we never actually put strings inside registers, just the address of the label)
 ####################################################################################################

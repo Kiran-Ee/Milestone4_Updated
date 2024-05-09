@@ -10,7 +10,7 @@ public class Or implements Operation {
     GeneralMachineCode gmc = new GeneralMachineCode();
     private String rs = "";
     private String rt = "";
-    private String rd = " ";
+    private String rd = "";
 
     public Or(String binary){
         String[] parsedInstruction = binary_parser(binary);
@@ -39,12 +39,6 @@ public class Or implements Operation {
             throw new IllegalArgumentException("Invalid binary instruction format.");
         }
     }
-
-//    @Override
-//    public String get_mnenomic() {
-//        return String.format("or {opcode: %s, rs: %s, rt: %s, rd: %s, shmt: %s, funct: %s}",
-//                opcode, rs, rt, rd, shamt, funct);
-//    }
 
     @Override
     public String[] getInstruction() {
