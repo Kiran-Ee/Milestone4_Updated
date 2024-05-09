@@ -15,12 +15,9 @@ public class Main {
 //        String hex_instr = args[0];
 //        String mnenomic = gmc.hex_to_mnenomic(hex_instr);
 //        System.out.println(mnenomic);
-        int immediate = 5;
-        int result = immediate << 16;
-        System.out.println();
-        System.out.print("Before masking " + result);
-        System.out.println();
-        result = result & 0xFFFF0000;  // Mask to keep only upper 16 bits
-        System.out.print("After masking " + result);
+        String bin = "11111111"; // Example binary string
+        System.out.println(GeneralMachineCode.bin_to_signedDec(bin));
+        bin = "100000000000000000"; // Example binary string
+        System.out.println(GeneralMachineCode.bin_to_signedDec(bin));
     }
 }

@@ -99,4 +99,18 @@ public class GeneralMachineCode {
         }
         return binary_instr;
     }
+
+    // Used by operations that need immediates to be in "signed dec" because they're NOT UNSIGNED
+    public static int bin_to_signedDec(String bin) {
+        int unsignedDecimal = Integer.parseInt(bin, 2);
+
+        int bin_signed = -1;
+        if (bin.charAt(0) == '1') {
+            bin_signed = -((1 << bin.length()) - unsignedDecimal);
+        } else {
+            bin_signed = unsignedDecimal;
+        }
+
+        return bin_signed;
+    }
 }
