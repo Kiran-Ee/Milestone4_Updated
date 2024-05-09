@@ -27,7 +27,6 @@ public class LuiTest {
     int exp_bin2 = 0x000a0000; //10
     int exp_bin3 = 0xffff0000; //FFFF0000 - Java is turning this negative for some reason
 
-
     @BeforeEach
     public void setUp() {
         CPU.s1 = s1_val;
@@ -55,6 +54,5 @@ public class LuiTest {
         lui.operate();
         assertEquals(exp_bin3, CPU.k0);
     }
-
 }
 

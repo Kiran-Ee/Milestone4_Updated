@@ -2,6 +2,7 @@ package Operations;
 
 import CPU.CPU;
 import MachineCode.GeneralMachineCode;
+import SecConverters.DataSecConverter;
 
 import java.math.BigInteger;
 
@@ -10,7 +11,7 @@ public class Lw implements Operation {
     GeneralMachineCode gmc = new GeneralMachineCode();
     private String base = "";
     private String rt = "";
-    private int offset = -1; // dec immediate
+    private int offset = -1; // dec signed
 
     public Lw(String binary) {
         String[] parsedInstruction = binary_parser(binary);
@@ -21,7 +22,10 @@ public class Lw implements Operation {
             String rt_temp = gmc.bin_to_hex(parsedInstruction[1]);
             this.rt = CPU.hex_to_reg(gmc.pad_binary(rt_temp, 2 - rt_temp.length()));
 
-            this.offset = new BigInteger(parsedInstruction[2], 2).intValue(); // dec immediate
+            int temp_offset = GeneralMachineCode.bin_to_dec(parsedInstruction[2], true); // dec immediate
+
+            if (temp_offset % 4 == 0) {this.offset = temp_offset;}
+            else throw new IllegalArgumentException("LW: Can't send in offset not a factor of 4");
         } else {
             throw new IllegalArgumentException("Invalid binary instruction format.");
         }
@@ -42,18 +46,20 @@ public class Lw implements Operation {
 
     @Override
     public String[] getInstruction() {
-        return new String[]{base, rt, ""+offset};
+        return new String[]{base, rt, "" + offset};
     }
 
     @Override
-    public String operate() {
-        int base_dec = CPU.get_registers_state().get(base); // should contain address of hex label in decimal
-        int return_dec = base_dec + offset;
-        // String return_hex = GeneralMachineCode.bin_to_hex(Integer.toBinaryString(return_dec));
-        // String lbl = DataSecConverter.data_mem.get(return_hex);
-        //int lbl_ASCII = CPU.string_to_ascii(lbl);
+    public String operate() { // puts value, at the address (base + offset), into destination register
+        int base_dec = CPU.get_registers_state().get(base);
+        String base_hex = Integer.toHexString(base_dec); //the data_mem's keys are in hex
+        String lbl = DataSecConverter.data_mem.get(base_hex);
 
-        CPU.update_register(rt, return_dec); // TODO: IS THIS AN ADDRESS OR A VALUE
-        return  "Performed LW operation: Base - "  +  base  +    " Rt - "  + rt +  "   = offset"  +   offset;
+        String subStr_lbl = lbl.substring(offset, offset + 4); //word is 8 bytes, 4 chars
+
+        int lbl_ASCII = CPU.string_to_ascii(subStr_lbl);
+
+        CPU.update_register(rt, lbl_ASCII);
+        return "Performed LW operation: Base - " + base + " Rt - " + rt + "   = offset" + offset;
     }
 }
