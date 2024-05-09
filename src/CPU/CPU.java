@@ -276,7 +276,7 @@ public class CPU {
             PC = PC + 1 + offset;
         } else if(branch_obj.operate().equals("jump")) {
             int address_dec = Integer.parseInt(branch_obj.getInstruction()[0]);
-            int starting_addr_dec = Integer.parseInt("00040000", 16);
+            int starting_addr_dec = Integer.parseInt("00400000", 16);
             PC = (address_dec - starting_addr_dec)/4; // word address
         }
         return PC;

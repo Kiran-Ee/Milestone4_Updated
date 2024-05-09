@@ -7,6 +7,8 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Objects;
 
+import static MachineCode.GeneralMachineCode.bin_to_signedDec;
+
 public class Beq implements Operation{
     GeneralMachineCode gmc = new GeneralMachineCode();
     private String rs = "";
@@ -22,7 +24,7 @@ public class Beq implements Operation{
             String rt_temp = gmc.bin_toHexImmediate(parsedInstruction[1]);
             this.rt = CPU.hex_to_reg(gmc.pad_binary(rt_temp, 2 - rt_temp.length()));
 
-            this.offset = new BigInteger(parsedInstruction[2], 2).intValue();
+            this.offset = bin_to_signedDec(parsedInstruction[2]);
         } else {
             throw new IllegalArgumentException("Invalid binary instruction format.");
         }
