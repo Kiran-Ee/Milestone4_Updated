@@ -58,6 +58,7 @@ public class SubTest {
         sub.operate();
         assertEquals(exp_val3, CPU.s3);
     }
+
     @Test
     public void setSub4() {
         sub = new Sub(bin_instr4);

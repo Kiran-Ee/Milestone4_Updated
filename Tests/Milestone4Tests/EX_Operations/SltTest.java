@@ -40,6 +40,7 @@ public class SltTest {
         CPU.s2 = s2_val;
         CPU.k1 = k1_val;
         CPU.v1 = v1_val;
+        CPU.zero = 0;
     }
     @Test
     public void setSlt1(){

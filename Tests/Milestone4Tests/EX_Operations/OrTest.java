@@ -42,6 +42,7 @@ public class OrTest {
         CPU.t7 = t7_val;
         CPU.a0 = a0_val;
         CPU.s5 = s5_val;
+        CPU.zero = 0;
     }
     @Test
     public void setOr1(){
