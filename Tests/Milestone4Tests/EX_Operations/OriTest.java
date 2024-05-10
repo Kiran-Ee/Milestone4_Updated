@@ -13,7 +13,7 @@ public class OriTest {
     int a3_val = 7;
     int t9_val = 25;
     int exp_val1 = 25;
-    String bin_instr2 = "00110111000011100000000000000001"; // ori $t6, $t8, 1;  Hex: 0x370E0001
+    String bin_instr2 = "00110111000011100000000000000001"; // ori $t6, $t8, 1; Hex: 0x370E0001
     int t8_val = 24;
     int t6_val = 14;
     int exp_val2 = 15;
