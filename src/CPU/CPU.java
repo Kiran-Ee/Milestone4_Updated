@@ -11,7 +11,11 @@ import java.util.Scanner;
 
 // Keeps track of registers, runs program
 public class CPU {
-    public static int zero = 0; //int approach: 10-digit decimal
+    // int approach: 10-digit decimal
+    // ... THEY HAVE TO BE SIGNED or else can't represent any number pas 2^15-1, or 15 bits
+    // ... Ex: "ffff0000" = "11111111111111110000000000000000" = "4,294,901,760"
+    // private int i = 4294901760; <- MAKES ERROR!
+    public static int zero = 0;
     public static int at = -1;
     public static int a0 = -1;
     public static int a1 = -1;
@@ -302,13 +306,16 @@ public class CPU {
         return return_string;
     }
 
+    // Returns decimal ascii of the string characters
     public static int string_to_ascii(String str) {
         int asciiValue = 0;
+        String ascii_hex = "";
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
-            asciiValue = asciiValue * 10 + (int) c;
+            asciiValue =  c;
+            ascii_hex += Integer.toHexString(asciiValue);
         }
-        return asciiValue;
+        return Integer.parseInt(ascii_hex, 16);
     }
 
 }

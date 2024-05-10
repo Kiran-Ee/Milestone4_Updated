@@ -14,6 +14,7 @@ public class SwTest {
     public void setUp() {
         CPU.s2 = s2_val;
     }
+
     @Test
     public void setSw1(){
         sw = new Sw(bin_instr1);

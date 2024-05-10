@@ -101,21 +101,27 @@ public class GeneralMachineCode {
     }
 
     public static int bin_to_dec(String bin, boolean isSigned) {
-        int dec = new BigInteger(bin, 2).intValue(); //unsigned conversion
+        int dec = new BigInteger(bin, 2).intValue(); //signed conversion
 
-        if (isSigned) { //signed conversion
-            String invertedBinary = "";
-            for (char bit : bin.toCharArray()) {
-                invertedBinary += (bit == '0') ? '1' : '0';
+        int n = bin.length();
+        if (!isSigned) { //unsigned conversion
+            dec = 0;
+            for (int i = 0; i < n; i++) {
+                char bit_char = bin.charAt(n - 1 - i);
+                int bit = bit_char - '0';
+                dec += bit * Math.pow(2, i);
             }
-            // Convert inverted binary to decimal and add 1 to complete two's complement
-            int invertedDecimal = Integer.parseInt(invertedBinary, 2) + 1;
-            // Return the negative of the invertedDecimal
-            return -invertedDecimal;
         }
         return dec;
     }
-
+//            String invertedBinary = "";
+//            for (char bit : bin.toCharArray()) {
+//                invertedBinary += (bit == '0') ? '1' : '0';
+//            }
+//            // Convert inverted binary to decimal and add 1 to complete two's complement
+//            int invertedDecimal = Integer.parseInt(invertedBinary, 2) + 1;
+//            // Return the negative of the invertedDecimal
+//            return -invertedDecimal;
 
     public static String dec_to_bin(int dec, boolean signed) {
         String binary = "";

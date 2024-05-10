@@ -52,7 +52,10 @@ public class Lui implements Operation {
     public String operate() {
         HashMap<String, Integer> hm = CPU.get_registers_state();
         int result = immediate << 16; // Load immediate into upper 16 bits, lower 16 bits are zero
-        result = bin_to_dec(dec_to_bin(result, false),false); // making sure it's in unsigned
+
+//        String bin = dec_to_bin(result, true); // extract binary representation
+//
+//        result = bin_to_dec(bin,true); // making sure it's in unsigned
 
         CPU.update_register(rt, result); //this actually stores a negative value in register
         return "Performed LUI operation:  " + immediate + "->   " + rt + "   =   " + result;
