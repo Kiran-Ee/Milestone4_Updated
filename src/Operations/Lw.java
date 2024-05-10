@@ -57,7 +57,7 @@ public class Lw implements Operation {
 
         String subStr_lbl = lbl.substring(offset, offset + 4); //word is 8 bytes, 4 chars
 
-        int lbl_ASCII = CPU.string_to_ascii(subStr_lbl);
+        int lbl_ASCII = DataSecConverter.string_to_hex(subStr_lbl);
 
         CPU.update_register(rt, lbl_ASCII);
         return "Performed LW operation: Base - " + base + " Rt - " + rt + "   = offset" + offset;

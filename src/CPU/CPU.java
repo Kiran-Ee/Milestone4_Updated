@@ -306,13 +306,16 @@ public class CPU {
         return return_string;
     }
 
+    // Returns decimal ascii of the string characters
     public static int string_to_ascii(String str) {
         int asciiValue = 0;
+        String ascii_hex = "";
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
-            asciiValue = asciiValue * 10 + (int) c;
+            asciiValue =  c;
+            ascii_hex += Integer.toHexString(asciiValue);
         }
-        return asciiValue;
+        return Integer.parseInt(ascii_hex, 16);
     }
 
 }

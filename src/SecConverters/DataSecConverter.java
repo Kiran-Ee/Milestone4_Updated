@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.LinkedHashMap;
 
+import static CPU.CPU.string_to_ascii;
+
 public class DataSecConverter {
     public static LinkedHashMap<String, String> data_mem = new LinkedHashMap<>();
     /*
@@ -65,6 +67,19 @@ public class DataSecConverter {
             }
         }
         return return_arr;
+    }
+
+    // used by LW: reverses string, turns into hex, returns int ascii
+    public static int string_to_hex(String str){
+        String temp_str = "";
+        int n = str.length();
+
+        // Reverses string - preparing for string_to_ascii
+        for (int i = n-1; i>=0; i--) {
+            temp_str += "" + str.charAt(i);
+        }
+
+        return string_to_ascii(temp_str);
     }
 
     private static int calc_data_size(String data) {
