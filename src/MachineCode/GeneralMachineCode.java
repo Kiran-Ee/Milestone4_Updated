@@ -74,7 +74,7 @@ public class GeneralMachineCode {
 
     // "n" Digit Binary -> "n/4" Digit Hex
     // Ex - "00000010101101001110100000100010" -> "02B4E822"
-    public static String bin_to_hex(String bin_imm) { //unsigned
+    public static String bin_to_hex(String bin_imm) { //UNSIGNED
         int padding = 4 - (bin_imm.length() % 4);
         if (padding != 4) // Ensure the length of the binary string is a multiple of 4 by padding with leading zeros
             bin_imm = "0".repeat(padding) + bin_imm;
@@ -100,17 +100,18 @@ public class GeneralMachineCode {
         return binary_instr;
     }
 
+    // bin = binary string with varying lengths
+    // isSigned = whether the binary should be interpretted as signed or unsiged (Ex: "11" = 3 unsigned or 1 signed)
     public static int bin_to_dec(String bin, boolean isSigned) {
-        int dec = new BigInteger(bin, 2).intValue(); //signed conversion
-
+        int dec = new BigInteger(bin, 2).intValue(); //unsigned conversion: Ex - "1111111111111011" -> 65531 instead of -5
         int n = bin.length();
-        if (!isSigned) { //unsigned conversion
-            dec = 0;
+
+        if (isSigned && bin.charAt(0) == '1') { //signed conversion for negatives
+            String invertedBinary = "";
             for (int i = 0; i < n; i++) {
-                char bit_char = bin.charAt(n - 1 - i);
-                int bit = bit_char - '0';
-                dec += bit * Math.pow(2, i);
+                invertedBinary += (bin.charAt(i) == '0') ? '1' : '0';
             }
+            dec = -(bin_to_dec(invertedBinary, false) + 1);
         }
         return dec;
     }
@@ -123,6 +124,7 @@ public class GeneralMachineCode {
 //            // Return the negative of the invertedDecimal
 //            return -invertedDecimal;
 
+    // Converts decimal
     public static String dec_to_bin(int dec, boolean signed) {
         String binary = "";
         int dividand = dec;

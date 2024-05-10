@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 
+import static MachineCode.GeneralMachineCode.bin_to_dec;
+import static MachineCode.GeneralMachineCode.dec_to_bin;
+
 // Keeps track of registers, runs program
 public class CPU {
     // int approach: 10-digit decimal
@@ -275,13 +278,14 @@ public class CPU {
         //in operate method check the string for equality (if == do operation +PC, != do operation)
         //beq take 2 registers and compare for equality-->== return string
         //offset is signed- pc needed to send next instruction and add the offset to it
-        if(branch_obj.operate().equals("branch")){
-           int offset = Integer.parseInt(branch_obj.getInstruction()[2]);
+        if (branch_obj.operate().equals("branch")) {
+            int offset = Integer.parseInt(branch_obj.getInstruction()[2]); // this needs to be seen as "signed" bc can have negative offset & offsets are represented as their decimal value
+
             PC = PC + 1 + offset;
-        } else if(branch_obj.operate().equals("jump")) {
+        } else if (branch_obj.operate().equals("jump")) {
             int address_dec = Integer.parseInt(branch_obj.getInstruction()[0]);
             int starting_addr_dec = Integer.parseInt("00400000", 16);
-            PC = (address_dec - starting_addr_dec)/4; // word address
+            PC = (address_dec - starting_addr_dec) / 4; // word address
         }
         return PC;
     }
@@ -292,12 +296,11 @@ public class CPU {
         Operation op_obj = null;
         String return_string = ""; // only syscall returns
 
-        for(int pc = 0; pc < TextSecConverter.text_mem.length; pc++) {
+        for (int pc = 0; pc < TextSecConverter.text_mem.length; pc++) {
             op_obj = txtSec_opObjs[pc];
-            if(op_obj instanceof Syscall) {
+            if (op_obj instanceof Syscall) {
                 return_string = syscall_handler(v0);
-            }
-            else if(op_obj instanceof j || op_obj instanceof Beq || op_obj instanceof Bne) {
+            } else if (op_obj instanceof j || op_obj instanceof Beq || op_obj instanceof Bne) {
                 pc = branch_handler(op_obj, pc);
             } else {
                 op_obj.operate();
@@ -312,7 +315,7 @@ public class CPU {
         String ascii_hex = "";
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
-            asciiValue =  c;
+            asciiValue = c;
             ascii_hex += Integer.toHexString(asciiValue);
         }
         return Integer.parseInt(ascii_hex, 16);

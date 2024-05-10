@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class BeqTest {
     Beq beq = null;
     String bin_instr1 = "00010001101000100000000000000000"; //beq t5 v0 0x0000
-    String bin_instr2 = "00010001101011010000000011111111"; //beq t5 t5 0xff
+    String bin_instr2 = "00010001101011010000000011111111"; //BEQ $t5 $t5 0x00FF
     String bin_instr3 = "00010000000100111111111111111011"; //beq zero s3 -5
 
     int t5_val = 13;
@@ -68,5 +68,13 @@ public class BeqTest {
         int pc2 = 2;
         int exp_pc2 = pc2 + 1 + 255;
         assertEquals(exp_pc2, branch_handler(beq,pc2));
+    }
+
+    @Test
+    public void branchHandler_Beq3() {
+        beq = new Beq(bin_instr3);
+        int pc3 = 2;
+        int exp_pc3 = pc3 + 1 + -5;
+        assertEquals(exp_pc3, branch_handler(beq,pc3));
     }
 }
