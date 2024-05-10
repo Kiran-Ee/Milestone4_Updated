@@ -18,6 +18,16 @@ public class SltTest {
     int a2_val = 6;
     int t5_val = 15;
     int exp_val2 = 1;
+    String bin_instr3 = "00000010010000001000100000101010"; //slt $s1, $s2, zero - hex-0x0240882A
+    int s1_val = 17;
+    int s2_val = 18;
+    int exp_val3 = 1;
+    String bin_instr4 = "00000000000000000000000000101010"; //slt "zero", "zero", "zero" - hex-0x0000002A
+    int exp_val4 = 0;
+    String bin_instr5 = "00000011011000110000000000101010"; //slt "zero", "$k1", $v1" - hex-0x0363002A
+    int k1_val = 27;
+    int v1_val = 3;
+    int exp_val5 = 0;
 
     @BeforeEach
     public void setUp() {
@@ -26,6 +36,11 @@ public class SltTest {
         CPU.a1 = a1_val;
         CPU.a2 = a2_val;
         CPU.t5 = t5_val;
+        CPU.s1 = s1_val;
+        CPU.s2 = s2_val;
+        CPU.k1 = k1_val;
+        CPU.v1 = v1_val;
+        CPU.zero = 0;
     }
     @Test
     public void setSlt1(){
@@ -38,5 +53,23 @@ public class SltTest {
         slt = new Slt(bin_instr2);
         slt.operate();
         assertEquals(exp_val2, CPU.a2);
+    }
+    @Test
+    public void setSlt3(){
+        slt = new Slt(bin_instr3);
+        slt.operate();
+        assertEquals(exp_val3, CPU.s1);
+    }
+    @Test
+    public void setSlt4(){
+        slt = new Slt(bin_instr4);
+        slt.operate();
+        assertEquals(exp_val4, CPU.zero);
+    }
+    @Test
+    public void setSlt5(){
+        slt = new Slt(bin_instr5);
+        slt.operate();
+        assertEquals(exp_val5, CPU.zero);
     }
 }

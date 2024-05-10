@@ -24,6 +24,8 @@ public class SubTest {
     int v0_val = 2;
     int s3_val = 19;
     int exp_val3 = 4; //a2 - v0;
+    String bin_instr4 = "00000000010100110011000000100010"; //sub zero zero zero hex-0x0000002
+    int exp_val4 = 0;
 
     @BeforeEach
     public void setUp(){
@@ -36,6 +38,7 @@ public class SubTest {
         CPU.a2 = a2_val;
         CPU.v0 = v0_val;
         CPU.s3 = s3_val;
+        CPU.zero = 0;
     }
     @Test
     public void setSub1(){
@@ -54,6 +57,13 @@ public class SubTest {
         sub = new Sub(bin_instr3);
         sub.operate();
         assertEquals(exp_val3, CPU.s3);
+    }
+
+    @Test
+    public void setSub4() {
+        sub = new Sub(bin_instr4);
+        sub.operate();
+        assertEquals(exp_val4, CPU.zero);
     }
 
 }
