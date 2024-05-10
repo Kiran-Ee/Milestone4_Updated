@@ -19,6 +19,16 @@ public class OrTest {
     int t2_val = 10;
     int t1_val = 9;
     int exp_val2 = 11;
+    String bin_instr3 = "00000001111000001001000000100101"; // "or", "$s2", "$t7", "$zero" - hex-0x01E09025
+    int s2_val = 18;
+    int t7_val = 15;
+    int exp_val3 = 15 ;
+    String bin_instr4 = "00000010101101100010000000100101"; // "or", "$a0", "$s5", "$s6" - hex-00652825
+    int a0_val = 4;
+    int s5_val = 21;
+    //int s6_val = 22;
+    int exp_val4 = 23;
+
 
     @BeforeEach
     public void setUp(){
@@ -28,6 +38,10 @@ public class OrTest {
         CPU.s6 = s6_val;
         CPU.t2 = t2_val;
         CPU.t1 = t1_val;
+        CPU.s2 = s2_val;
+        CPU.t7 = t7_val;
+        CPU.a0 = a0_val;
+        CPU.s5 = s5_val;
     }
     @Test
     public void setOr1(){
@@ -40,5 +54,17 @@ public class OrTest {
         or = new Or(bin_instr2);
         or.operate();
         assertEquals(exp_val2, CPU.s6);
+    }
+    @Test
+    public void setOr3(){
+        or = new Or(bin_instr3);
+        or.operate();
+        assertEquals(exp_val3, CPU.s2);
+    }
+    @Test
+    public void setOr4(){
+        or = new Or(bin_instr4);
+        or.operate();
+        assertEquals(exp_val4, CPU.a0);
     }
 }
