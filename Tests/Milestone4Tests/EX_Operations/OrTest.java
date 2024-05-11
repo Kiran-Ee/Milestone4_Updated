@@ -11,22 +11,21 @@ public class OrTest {
     Or or = null;
     String bin_instr1 = "00000010001001110100000000100101"; // "or", "$t0", "$s1", "$a3" - hex-02274025
     int t0_val = 8;
-    int s1_val = 17;
+    int s1_val = 0x7fff;
     int a3_val = 7;
-    int exp_val1 = 17;
+    int exp_val1 = 32767;
     String bin_instr2 = "00000001010010011011000000100101"; // "or", "$s6", "$t2", "$t1" - hex-0149B025
     int s6_val = 22;
-    int t2_val = 10;
+    int t2_val = 0;
     int t1_val = 9;
-    int exp_val2 = 11;
+    int exp_val2 = 9;
     String bin_instr3 = "00000001111000001001000000100101"; // "or", "$s2", "$t7", "$zero" - hex-0x01E09025
     int s2_val = 18;
-    int t7_val = 15;
-    int exp_val3 = 15 ;
+    int t7_val = -123;
+    int exp_val3 = -123;
     String bin_instr4 = "00000010101101100010000000100101"; // "or", "$a0", "$s5", "$s6" - hex-00652825
     int a0_val = 4;
     int s5_val = 21;
-    //int s6_val = 22;
     int exp_val4 = 23;
 
 

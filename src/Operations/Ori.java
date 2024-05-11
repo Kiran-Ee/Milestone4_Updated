@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 public class Ori implements Operation{
     GeneralMachineCode gmc = new GeneralMachineCode();
-    private final String opcode = "0d";
     private String rs = "";
     private String rt = "";
     private int immediate = -1;
