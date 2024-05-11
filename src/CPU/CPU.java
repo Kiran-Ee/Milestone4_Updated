@@ -16,8 +16,8 @@ import static MachineCode.GeneralMachineCode.dec_to_bin;
 public class CPU {
     // int approach: 10-digit decimal
     // ... THEY HAVE TO BE SIGNED or else can't represent any number pas 2^15-1, or 15 bits
-    // ... Ex: "ffff0000" = "11111111111111110000000000000000" = "4,294,901,760"
-    // private int i = 4294901760; <- MAKES ERROR!
+    // ... Ex: "ffff0000" = "11111111111111110000000000000000" = "4,294,901,760" as unsigned, "-65536" as signed
+    // private int i = 4294901760; <- MAKES ERROR! so we're storing as signed "-65536"
     public static int zero = 0;
     public static int at = -1;
     public static int a0 = -1;
@@ -298,11 +298,14 @@ public class CPU {
 
         for (int pc = 0; pc < TextSecConverter.text_mem.length; pc++) {
             op_obj = txtSec_opObjs[pc];
+
             if (op_obj instanceof Syscall) {
                 return_string = syscall_handler(v0);
-            } else if (op_obj instanceof j || op_obj instanceof Beq || op_obj instanceof Bne) {
+            }
+            else if (op_obj instanceof j || op_obj instanceof Beq || op_obj instanceof Bne) {
                 pc = branch_handler(op_obj, pc);
-            } else {
+            }
+            else {
                 op_obj.operate();
             }
         }

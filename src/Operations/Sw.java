@@ -19,12 +19,14 @@ public class Sw implements Operation {
         String[] parsedInstruction = binary_parser(binary);
         if (parsedInstruction.length == 3) {
             String rs_temp = gmc.bin_to_hex(parsedInstruction[0]);
-            this.base =  CPU.hex_to_reg(gmc.pad_binary(rs_temp, 2 - rs_temp.length()));
+            this.base = CPU.hex_to_reg(gmc.pad_binary(rs_temp, 2 - rs_temp.length()));
 
             String rt_temp = gmc.bin_to_hex(parsedInstruction[1]);
-            this.rt =  CPU.hex_to_reg(gmc.pad_binary(rt_temp, 2 - rt_temp.length()));
+            this.rt = CPU.hex_to_reg(gmc.pad_binary(rt_temp, 2 - rt_temp.length()));
 
-            this.offset = new BigInteger(parsedInstruction[2]).intValue();
+            int temp_offset = GeneralMachineCode.bin_to_dec(parsedInstruction[2], true); // dec immediate
+
+            this.offset = temp_offset;
         } else {
             throw new IllegalArgumentException("Invalid binary instruction format.");
         }
@@ -43,11 +45,6 @@ public class Sw implements Operation {
         }
     }
 
-//    @Override
-//    public String get_mnenomic() {
-//        return String.format("sw {opcode: %s, rs(base): %s, rt: %s, immediate(offset): %s}", opcode, base, rt, offset);
-//    }
-
     @Override
     public String[] getInstruction() {
         return new String[]{base, rt, "" + offset};
@@ -62,13 +59,14 @@ public class Sw implements Operation {
         int base_dec = registers.get(base);
 
         // 2. Calculate the memory address based on base register and offset
-        int result_addr_dec = base_dec + offset;
-        String result_addr_bin = Integer.toBinaryString(result_addr_dec);
-        String result_addr_hex = GeneralMachineCode.bin_to_hex(result_addr_bin);
+        int addr_dec = base_dec + offset; // "13e"
+        int starting_addr = 268500992; // "0x10010000"
+        int result_addr_dec = starting_addr + addr_dec; // 10010000 + 13e = 1001013e
+        String hex = Integer.toHexString(result_addr_dec); //signed
 
         // 3. Store the value of register rt INTO MEMORY at the calculated address
-        DataSecConverter.data_mem.put(result_addr_hex, String.valueOf(rt_dec));
+        DataSecConverter.data_mem.put(hex, "" + rt_dec);
 
-        return "Stored value of " + rt + " into memory address " + result_addr_hex;
+        return "Stored value of " + rt + " into memory address " + hex;
     }
 }

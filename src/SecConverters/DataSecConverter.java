@@ -11,7 +11,7 @@ public class DataSecConverter {
     public static LinkedHashMap<String, String> data_mem = new LinkedHashMap<>();
     /*
     {“address in memory” : “data” }
-        {“10010000” : "Enter your integer: "]}
+        {“10010000” : "Enter your integer: "}
         {“10010015” : "Your integer is EVEN!"}
         {“1001002b” : "Your integer is ODD!"}
      */
@@ -43,7 +43,7 @@ public class DataSecConverter {
     }
 
     // Converts a hex_string in little endian to its original string
-    // Ex:"65746e45"-> Ente
+    // Ex:"65746e45" -> Ente
     public static String[] lnInterpreter_dtaHex(String hex_dtaLn) {
         int str_size = hex_dtaLn.length();
         String[] return_arr = new String[]{"", "empty"};

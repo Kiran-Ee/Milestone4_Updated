@@ -24,8 +24,7 @@ public class Lw implements Operation {
 
             int temp_offset = GeneralMachineCode.bin_to_dec(parsedInstruction[2], true); // dec immediate
 
-            if (temp_offset % 4 == 0) {this.offset = temp_offset;}
-            else throw new IllegalArgumentException("LW: Can't send in offset not a factor of 4");
+            this.offset = temp_offset;
         } else {
             throw new IllegalArgumentException("Invalid binary instruction format.");
         }

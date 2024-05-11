@@ -70,8 +70,14 @@ public class Main {
 
         System.out.println(dec_to_bin(65535, false)); //1111111111111111
         System.out.println(dec_to_bin(-1, true)); //1111111111111111
-        System.out.println(Integer.toBinaryString(-65536));
+        System.out.println("testing Integer.toBinary String: " + Integer.toBinaryString(-65536)); // toBinaryString = SIGNED
+        System.out.println("testing Integer.toHex String: " + Integer.toHexString(-65536)); // toHexString  = SIGNED
 
+        System.out.println("printing ASCII of dec 18" + (char)18 + "testing");
+
+        System.out.println(0x10010000); // "0x" = SIGNED
+        System.out.println(Integer.parseInt("101", 2)); //UNSIGNED
+        System.out.println(new BigInteger("101", 2)); //UNSIGNED
     }
 
 }
