@@ -12,18 +12,20 @@ public class SubTest {
     String bin_instr1= "00000010111001111011000000100010"; //"sub", "$s6", "$s7", "$a3"
     int s6_val = 22;
     int s7_val = 23;
-    int a3_val = 7;
-    int exp_val1 = 16; //s7_val - a3_val
+    int a3_val = -7;
+    int exp_val1 = 30; //s7_val - a3_val
+
     String bin_instr2 = "00000001001010100100000000100010";//"sub", "$t0", "$t1", "$t2" - hex-012A4022
     int t0_val = 8;
-    int t1_val = 9;
+    int t1_val = 0;
     int t2_val = 10;
-    int exp_val2 = -1; //t0 - t1
+    int exp_val2 = -10; //t1 - t2
+
     String bin_instr3 = "00000000010100110011000000100010"; //sub $a2 $v0 $s3
     int a2_val = 6;
     int v0_val = 2;
     int s3_val = 19;
-    int exp_val3 = 4; //a2 - v0;
+    int exp_val3 = -17; //v0 - s3;
     String bin_instr4 = "00000000010100110011000000100010"; //sub zero zero zero hex-0x0000002
     int exp_val4 = 0;
 
@@ -50,13 +52,13 @@ public class SubTest {
     public void setSub2(){
         sub = new Sub(bin_instr2);
         sub.operate();
-        assertEquals(CPU.t2, exp_val2);
+        assertEquals(exp_val2, CPU.t0);
     }
     @Test
     public void setSub3() {
         sub = new Sub(bin_instr3);
         sub.operate();
-        assertEquals(exp_val3, CPU.s3);
+        assertEquals(exp_val3, CPU.a2);
     }
 
     @Test
