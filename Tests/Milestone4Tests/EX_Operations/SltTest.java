@@ -11,8 +11,8 @@ public class SltTest {
     Slt slt = null;
     String bin_instr1 = "00000010111001011100100000101010"; // "slt", "$t9", "$s7", "$a1"
     int t9_val = 25;
-    int s7_val = 23;
-    int a1_val = 5;
+    int s7_val = 0;
+    int a1_val = -123;
     int exp_val1 = 0;
     String bin_instr2 = "00000000101011010011000000101010"; //slt $a2 $a1 $t5
     int a2_val = 6;
@@ -21,7 +21,7 @@ public class SltTest {
     String bin_instr3 = "00000010010000001000100000101010"; //slt $s1, $s2, zero - hex-0x0240882A
     int s1_val = 17;
     int s2_val = 18;
-    int exp_val3 = 1;
+    int exp_val3 = 0;
     String bin_instr4 = "00000000000000000000000000101010"; //slt "zero", "zero", "zero" - hex-0x0000002A
     int exp_val4 = 0;
     String bin_instr5 = "00000011011000110000000000101010"; //slt "zero", "$k1", $v1" - hex-0x0363002A
