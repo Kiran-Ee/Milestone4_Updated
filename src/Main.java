@@ -4,8 +4,12 @@
 import MachineCode.GeneralMachineCode;
 
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static MachineCode.GeneralMachineCode.*;
+
+import CPU.CPU;
 
 public class Main {
     public static void main(String[] args) {
@@ -64,20 +68,34 @@ public class Main {
 //        BigInteger bi3 = BigInteger.valueOf(i1);
 //        s3 = bi3.toString(2);
 //        System.out.println(s3);
+//
+//        System.out.println(bin_to_dec("1111111111111111", false)); //65535
+//        System.out.println(bin_to_dec("1111111111111111", true)); //-1
+//
+//        System.out.println(dec_to_bin(65535, false)); //1111111111111111
+//        System.out.println(dec_to_bin(-1, true)); //1111111111111111
+//        System.out.println("testing Integer.toBinary String: " + Integer.toBinaryString(-65536)); // toBinaryString = SIGNED
+//        System.out.println("testing Integer.toHex String: " + Integer.toHexString(-65536)); // toHexString  = SIGNED
+//
+//        System.out.println("printing ASCII of dec 18" + (char)18 + "testing");
+//
+//        System.out.println(0x10010000); // "0x" = SIGNED
+//        System.out.println(Integer.parseInt("101", 2)); //UNSIGNED
+//        System.out.println(new BigInteger("101", 2)); //UNSIGNED
 
-        System.out.println(bin_to_dec("1111111111111111", false)); //65535
-        System.out.println(bin_to_dec("1111111111111111", true)); //-1
 
-        System.out.println(dec_to_bin(65535, false)); //1111111111111111
-        System.out.println(dec_to_bin(-1, true)); //1111111111111111
-        System.out.println("testing Integer.toBinary String: " + Integer.toBinaryString(-65536)); // toBinaryString = SIGNED
-        System.out.println("testing Integer.toHex String: " + Integer.toHexString(-65536)); // toHexString  = SIGNED
+        System.out.println("Hex to decimal" + Integer.parseInt("65746e45", 16));
 
-        System.out.println("printing ASCII of dec 18" + (char)18 + "testing");
 
-        System.out.println(0x10010000); // "0x" = SIGNED
-        System.out.println(Integer.parseInt("101", 2)); //UNSIGNED
-        System.out.println(new BigInteger("101", 2)); //UNSIGNED
+        CPU c = new CPU();
+        try {
+            String dataContents = Files.readString(Path.of(args[1]));
+            String textContents = Files.readString(Path.of(args[0]));
+
+            c.cpu(dataContents, textContents);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

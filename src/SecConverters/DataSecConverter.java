@@ -8,34 +8,34 @@ import java.util.LinkedHashMap;
 import static CPU.CPU.string_to_ascii;
 
 public class DataSecConverter {
-    public static LinkedHashMap<String, String> data_mem = new LinkedHashMap<>();
+    public static LinkedHashMap<String, Integer> data_mem = new LinkedHashMap<>();
+
     /*
-    {“address in memory” : “data” }
-        {“10010000” : "Enter your integer: "}
-        {“10010015” : "Your integer is EVEN!"}
-        {“1001002b” : "Your integer is ODD!"}
+     {“address in memory” : }
+        {“10010000” : 1702129221} //0x65746e45 ... etnE
+        {“10010004” : 1870209138} //0x6f792072 ... oy r
+        {“10010008” : 1763734133} //0x69207275 ... i ru
+        {“1001000a” : 1734702190} //0x6765746e ... getn
+        {"1001000e" : 1970231552} //0x756f5900 ... uoy/0
      */
 
+    /**
+     * Takes entire data section, which is in hex, and converts it into memory: keys = string of hex address, values = data of the hex value.
+     *
+     * @param hex_dta: String representing the entire hex section sent in by main.
+     */
     public static void dataSec_Converter(String hex_dta) {
         try (BufferedReader reader = new BufferedReader(new StringReader(hex_dta))) {
+            int cur_addr_dec = 0x10010000; //used for addition
+            String cur_addr_str = "10010000"; //used for key
             String ln = "";
-            String cur_addr = "10010000";
-            int cur_size = -1;
-            String[] str_arr = null;
-            String lbl1 = "";
-            String lbl2 = "";
+            int ln_int = -1;
 
             while ((ln = reader.readLine()) != null) {
-                str_arr = lnInterpreter_dtaHex(ln);
-                lbl1 = lbl1 + str_arr[0];
-                lbl2 = str_arr[1];
-
-                if (!lbl2.equals("empty")) { // only happens when found null byte
-                    cur_size = calc_data_size(lbl1);
-                    data_mem.put(cur_addr, lbl1);
-                    cur_addr = calc_next_address(cur_addr, cur_size);
-                    lbl1 = lbl2; // lbl2 is the start of the next string
-                }
+                ln_int = Integer.parseInt(ln, 16);
+                data_mem.put(cur_addr_str, ln_int);
+                cur_addr_dec += 4; //4 bytes
+                cur_addr_str = Integer.toHexString(cur_addr_dec);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -70,12 +70,12 @@ public class DataSecConverter {
     }
 
     // used by LW: reverses string, turns into hex, returns int ascii
-    public static int string_to_hex(String str){
+    public static int string_to_hex(String str) {
         String temp_str = "";
         int n = str.length();
 
         // Reverses string - preparing for string_to_ascii
-        for (int i = n-1; i>=0; i--) {
+        for (int i = n - 1; i >= 0; i--) {
             temp_str += "" + str.charAt(i);
         }
 
@@ -93,3 +93,12 @@ public class DataSecConverter {
     }
 }
 
+
+
+
+    /* outdated data_mem ...
+    {“address in memory” : “data” }
+        {“10010000” : "Enter your integer: "}
+        {“10010015” : "Your integer is EVEN!"}
+        {“1001002b” : "Your integer is ODD!"}
+     */

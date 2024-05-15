@@ -60,12 +60,13 @@ public class Sw implements Operation {
 
         // 2. Calculate the memory address based on base register and offset
         int addr_dec = base_dec + offset; // "13e"
-        int starting_addr = 268500992; // "0x10010000"
-        int result_addr_dec = starting_addr + addr_dec; // 10010000 + 13e = 1001013e
-        String hex = Integer.toHexString(result_addr_dec); //signed
+//        int starting_addr = 268500992; // "0x10010000" SHOULD ALREDY HAVE VALID ADDRESS AS BASE
+//        int result_addr_dec = starting_addr + addr_dec; // 10010000 + 13e = 1001013e
+        String hex = Integer.toHexString(addr_dec); //signed
 
         // 3. Store the value of register rt INTO MEMORY at the calculated address
-        DataSecConverter.data_mem.put(hex, "" + rt_dec);
+        // TODO
+        //DataSecConverter.data_mem.put(hex, "" + rt_dec);
 
         return "Stored value of " + rt + " into memory address " + hex;
     }

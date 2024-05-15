@@ -250,21 +250,24 @@ public class CPU {
         String return_string = "";
         switch (v0_val) {
             case 1:  //print int
-                return_string = String.valueOf(a0);
+                return_string = String.valueOf(a0) + "\n";
+                System.out.println(return_string);
                 break;
             case 4: //print string
                 String hex_a0_unpadded = Integer.toHexString(a0);
                 String hex_a0 = GeneralMachineCode.pad_binary(hex_a0_unpadded, 8 - hex_a0_unpadded.length());
-                return_string = DataSecConverter.data_mem.get(hex_a0); // handle key exception? ...
+                return_string = DataSecConverter.data_mem.get(hex_a0) + "\n";
+                System.out.print(return_string);
                 break;
             case 5: //read int
                 Scanner scanner = new Scanner(System.in);
-                System.out.print("Enter Int: ");
-                v0 = Integer.parseInt(scanner.nextLine()); // handle exception ...
-                return_string = "read int";
+                v0 = scanner.nextInt();
+                //v0 = 11; // TODO - HARDCODING THIS FOR TESTING RunProgramTest!
+                return_string = "";
                 break;
             case 10: //stop execution
-                return_string = "-- program is finished running --";
+                return_string = "-- program is finished running --" + "\n";
+                System.out.print(return_string);
                 break;
             default:
                 throw new IllegalArgumentException("Only allowed to perform syscall on $v0 = 1,4,5,10");
@@ -274,18 +277,14 @@ public class CPU {
 
     //helper method for run_program()
     public static int branch_handler(Operation branch_obj, int PC) {
-        //no brunch return PC
-        //in operate method check the string for equality (if == do operation +PC, != do operation)
-        //beq take 2 registers and compare for equality-->== return string
-        //offset is signed- pc needed to send next instruction and add the offset to it
         if (branch_obj.operate().equals("branch")) {
             int offset = Integer.parseInt(branch_obj.getInstruction()[2]); // this needs to be seen as "signed" bc can have negative offset & offsets are represented as their decimal value
 
-            PC = PC + 1 + offset;
+            PC = PC + offset; // the "+1" is taken care of in the loop
         } else if (branch_obj.operate().equals("jump")) {
             int address_dec = Integer.parseInt(branch_obj.getInstruction()[0]);
             int starting_addr_dec = Integer.parseInt("00400000", 16);
-            PC = (address_dec - starting_addr_dec) / 4; // word address
+            PC = (address_dec - starting_addr_dec) / 4 - 1; // word address: "-1" because loop increments
         }
         return PC;
     }
@@ -300,7 +299,7 @@ public class CPU {
             op_obj = txtSec_opObjs[pc];
 
             if (op_obj instanceof Syscall) {
-                return_string = syscall_handler(v0);
+                return_string += syscall_handler(v0);
             }
             else if (op_obj instanceof j || op_obj instanceof Beq || op_obj instanceof Bne) {
                 pc = branch_handler(op_obj, pc);
@@ -309,7 +308,7 @@ public class CPU {
                 op_obj.operate();
             }
         }
-        return return_string;
+        return return_string; //TODO - CAN I JUST PRINT IT IN THIS METHOD OR DOES IT NEED TO BE IN MAIN?
     }
 
     // Returns decimal ascii of the string characters
