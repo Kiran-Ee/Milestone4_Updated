@@ -52,13 +52,15 @@ public class Lw implements Operation {
     public String operate() { // puts value, at the address (base + offset), into destination register
         int base_dec = CPU.get_registers_state().get(base);
         String base_hex = Integer.toHexString(base_dec); //the data_mem's keys are in hex
-        String lbl = DataSecConverter.data_mem.get(base_hex);
 
-        String subStr_lbl = lbl.substring(offset, offset + 4); //word is 8 bytes, 4 chars
+        // TODO
+        //String lbl = DataSecConverter.data_mem.get(base_hex);
 
-        int lbl_ASCII = DataSecConverter.string_to_hex(subStr_lbl);
+        // String subStr_lbl = lbl.substring(offset, offset + 4); //word is 8 bytes, 4 chars
 
-        CPU.update_register(rt, lbl_ASCII);
+        // int lbl_ASCII = DataSecConverter.string_to_hex(subStr_lbl);
+
+        // CPU.update_register(rt, lbl_ASCII);
         return "Performed LW operation: Base - " + base + " Rt - " + rt + "   = offset" + offset;
     }
 }

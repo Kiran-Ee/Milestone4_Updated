@@ -40,9 +40,10 @@ public class LwTest {
 
         CPU.k0 = k0_val;
 
-        DataSecConverter.data_mem.put("10010000", "Enter your integer: ");
-        DataSecConverter.data_mem.put("10010015", "Your integer is EVEN!");
-        DataSecConverter.data_mem.put("1001002b", "Your integer is ODD!");
+        // TODO
+//        DataSecConverter.data_mem.put("10010000", "Enter your integer: ");
+//        DataSecConverter.data_mem.put("10010015", "Your integer is EVEN!");
+//        DataSecConverter.data_mem.put("1001002b", "Your integer is ODD!");
     }
 
     @Test

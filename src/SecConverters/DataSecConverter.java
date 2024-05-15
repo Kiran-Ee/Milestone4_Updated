@@ -20,7 +20,8 @@ public class DataSecConverter {
      */
 
     /**
-     * Takes entire data section, which is in hex, and converts it into memory: keys = string of hex address, values = data of the hex value.
+     * Takes entire data section, which is in hex,
+     * and converts it into memory: keys = string of hex address, values = data of the hex value.
      *
      * @param hex_dta: String representing the entire hex section sent in by main.
      */
@@ -40,6 +41,47 @@ public class DataSecConverter {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Looks for the address in memory, starts piecing together (undoing little endian) the label until reaching null byte.
+     * @param key_address
+     * @return the corresponding label
+     */
+    public static String address_to_label(String key_address) {
+        if (data_mem.isEmpty()) throw new IllegalArgumentException("No labels to convert an address to");
+
+        // Address needs to be factor of "4" because that's how hashmap stores it ... If not then ...
+        // 1] Find the word it's pointing to
+        // 2] Substring to get everything 'left' of the null byte
+        // 3] Proceed with conversion
+        int i = 0;
+        int key_addr_int = Integer.parseInt(key_address, 16);
+        if (key_addr_int % 4 != 0) {
+            int remainder = key_addr_int % 4;
+            key_addr_int = key_addr_int - remainder; //moving address to address that's divisible by 4
+            key_address = Integer.toHexString(key_addr_int);
+            i = 4 - Integer.toHexString(data_mem.get(Integer.toHexString(key_addr_int))).indexOf("00") / 2; // pointing to the location of "00" in the int value of hashmap
+        }
+
+        String lbl = "";
+        String cur_addr = key_address;
+        boolean found_null = false;
+
+        while (!found_null) {
+            int mem_val = data_mem.get(cur_addr); // Grab word from next address
+            for (; i < 4; i++) {
+                char charVal = (char) ((mem_val >> (i * 8)) & 0x000000FF);
+                if (charVal == 0x00) {
+                    found_null = true;
+                    break;
+                }
+                lbl += charVal;
+            }
+            i = 0; //resetting after so the first iteration can choose where to start
+            cur_addr = Integer.toHexString(Integer.parseInt(cur_addr, 16) + 4);
+        }
+        return lbl;
     }
 
     // Converts a hex_string in little endian to its original string
@@ -68,6 +110,7 @@ public class DataSecConverter {
         }
         return return_arr;
     }
+
 
     // used by LW: reverses string, turns into hex, returns int ascii
     public static int string_to_hex(String str) {

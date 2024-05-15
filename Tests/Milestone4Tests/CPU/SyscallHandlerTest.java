@@ -17,10 +17,11 @@ class SyscallHandlerTest {
 
     @BeforeEach
     public void setUp() { //creating data sec for "Print String"
-        LinkedHashMap<String, String> lhm = DataSecConverter.data_mem;
-        lhm.put("10010000", "Enter your integer: ");
-        lhm.put("10010015", "Your integer is EVEN!");
-        lhm.put("1001002b", "Your integer is ODD");
+        //TODO
+//        LinkedHashMap<String, String> lhm = DataSecConverter.data_mem;
+//        lhm.put("10010000", "Enter your integer: ");
+//        lhm.put("10010015", "Your integer is EVEN!");
+//        lhm.put("1001002b", "Your integer is ODD");
     }
 
     @Test
