@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 import static MachineCode.GeneralMachineCode.bin_to_dec;
 import static MachineCode.GeneralMachineCode.dec_to_bin;
+import static SecConverters.DataSecConverter.address_to_label;
 
 // Keeps track of registers, runs program
 public class CPU {
@@ -249,15 +250,16 @@ public class CPU {
     public static String syscall_handler(int v0_val) { //TODO
         String return_string = "";
         switch (v0_val) {
-            case 1:  //print int
-                return_string = String.valueOf(a0) + "\n";
+            case 1: //print int
+                return_string = String.valueOf(a0);
                 System.out.println(return_string);
                 break;
             case 4: //print string
                 String hex_a0_unpadded = Integer.toHexString(a0);
                 String hex_a0 = GeneralMachineCode.pad_binary(hex_a0_unpadded, 8 - hex_a0_unpadded.length());
-                return_string = DataSecConverter.data_mem.get(hex_a0) + "\n";
-                System.out.print(return_string);
+
+                return_string = address_to_label(hex_a0);
+                System.out.println(return_string);
                 break;
             case 5: //read int
                 Scanner scanner = new Scanner(System.in);
@@ -266,20 +268,19 @@ public class CPU {
                 return_string = "";
                 break;
             case 10: //stop execution
-                return_string = "-- program is finished running --" + "\n";
-                System.out.print(return_string);
+                return_string = "-- program is finished running --";
+                System.out.println(return_string);
                 break;
             default:
-                throw new IllegalArgumentException("Only allowed to perform syscall on $v0 = 1,4,5,10");
+                throw new IllegalArgumentException("Only allowed to perform syscall : $v0 = 1,4,5,10");
         }
         return return_string;
     }
 
-    //helper method for run_program()
+    //helper method for run_program(), returns the new PC
     public static int branch_handler(Operation branch_obj, int PC) {
         if (branch_obj.operate().equals("branch")) {
             int offset = Integer.parseInt(branch_obj.getInstruction()[2]); // this needs to be seen as "signed" bc can have negative offset & offsets are represented as their decimal value
-
             PC = PC + offset; // the "+1" is taken care of in the loop
         } else if (branch_obj.operate().equals("jump")) {
             int address_dec = Integer.parseInt(branch_obj.getInstruction()[0]);
@@ -294,8 +295,10 @@ public class CPU {
         Operation[] txtSec_opObjs = TextSecConverter.text_mem;
         Operation op_obj = null;
         String return_string = ""; // only syscall returns
+        int n = TextSecConverter.text_mem.length;
+        int pc = 0;
 
-        for (int pc = 0; pc < TextSecConverter.text_mem.length; pc++) {
+        for (; pc < n; pc++) {
             op_obj = txtSec_opObjs[pc];
 
             if (op_obj instanceof Syscall) {
@@ -308,6 +311,7 @@ public class CPU {
                 op_obj.operate();
             }
         }
+        if (pc == n) System.out.println("-- program is finished running (dropped off bottom) --");
         return return_string; //TODO - CAN I JUST PRINT IT IN THIS METHOD OR DOES IT NEED TO BE IN MAIN?
     }
 

@@ -16,20 +16,14 @@ public class jTest {
     String bin_instr3 = "00001000010000000000000000010000"; //j 0x00400010 ... 5th instruction
     // 0x00400000, 0x00400004, 0x00400008, 0x0040000c, 0x00400010
 
+    int pc = 2; //chosen to test going forwards and backwards
+
     String exp_j = "jump";
 
-    int pc1 = 10;
-    int pc2 = 120934;
-    int pc3 = 0;
-
-    int exp_pc1 = 0;
-    int exp_pc2 = 1;
-    int exp_pc3 = 4;
-
-    @BeforeEach
-    public void setUp() {
-
-    }
+    // Expected PC: "-1" because loop adds one
+    int exp_pc1 = 0-1; // 1st, going backward
+    int exp_pc2 = 1-1; // 2nd, staying same
+    int exp_pc3 = 4-1; // 5th, increasing
 
     @Test // all jump's operate hardcoded to unconditionally jump for branch handler
     public void setJ1() {
@@ -40,20 +34,20 @@ public class jTest {
     @Test // all jump's operate hardcoded to unconditionally jump for branch handler
     public void branchHandler_1() {
         j = new j(bin_instr1);
-        int actual_pc = branch_handler(j, pc1);
+        int actual_pc = branch_handler(j, pc);
         assertEquals(exp_pc1, actual_pc);
     }
     @Test // all jump's operate hardcoded to unconditionally jump for branch handler
     public void branchHandler_2() {
         j = new j(bin_instr2);
-        int actual_pc = branch_handler(j, pc2);
+        int actual_pc = branch_handler(j, pc);
         assertEquals(exp_pc2, actual_pc);
     }
 
     @Test // all jump's operate hardcoded to unconditionally jump for branch handler
     public void branchHandler_3() {
         j = new j(bin_instr3);
-        int actual_pc = branch_handler(j, pc3);
+        int actual_pc = branch_handler(j, pc);
         assertEquals(exp_pc3, actual_pc);
     }
 }

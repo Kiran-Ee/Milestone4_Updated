@@ -111,7 +111,6 @@ class DtaSecConverterTest {
         }
     }
 
-
     @Test
     void setDataSec3() {
         DataSecConverter.data_mem = new LinkedHashMap<>(); // restarting variable
@@ -121,5 +120,4 @@ class DtaSecConverterTest {
         LinkedHashMap<String, Integer> actual_hm = DataSecConverter.data_mem;
         assertEquals(new LinkedHashMap<>(), actual_hm);
     }
-
 }
