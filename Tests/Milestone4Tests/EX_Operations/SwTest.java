@@ -1,96 +1,114 @@
 package Milestone4Tests.EX_Operations;
 
 import CPU.CPU;
+import Operations.Lw;
 import Operations.Sw;
 import SecConverters.DataSecConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.LinkedHashMap;
 
 import static SecConverters.DataSecConverter.data_mem;
 import static org.junit.Assert.assertEquals;
 
 public class SwTest {
     Sw sw = null;
-    String bin_instr1 = "10101110010100100000000011110000"; //"sw", "$s2", "240"("$s2") - testing storing word to random location
-    String bin_instr2 = "10101110010100101111111111111100"; //"sw", "$s2", "-4"("$s2") - testing negative offset
-    String bin_instr3 = "10101110011010010000000000000000"; //"sw", "$t1", "0"("$s3"): testing modifying a data label
-    String bin_instr4 = "10101110011100110000000000000000"; //"sw", "$s3", "0"("$s3"): testing modifying a data label
-    //
+    LinkedHashMap<String, Integer> hm1 = new LinkedHashMap<>();
+    String bin_instr1 = "10101110010000100000000011110000"; //"sw", "$v0", "240"("$s2") - testing storing word to random location
+    String bin_instr2 = "10101110010000111111111111111100"; //"sw", "$v1", "-4"("$s2") - testing negative offset ... AE43FFFC
+    String bin_instr3 = "10101110011001000000000000000000"; //"sw", "$a0", "0"("$s3"): testing modifying a data label ... AE640000
+    String bin_instr4 = "10101110011001010000000000000100"; //"sw", "$a1", "4"("$s3"): testing modifying a data label ... ae650004
 
-    int t1_val = 0x3e7; // 999 in dec -> ASCII: /0 /0 . .
-    int s2_val = 0x10010000; // 0000004e in hex -> ASCII: /0 /0 /0 n
-    int s3_val = 268500992; // 10010000 in mem
+    // Source Registers
+    int v0_val = -1; //testing negative word
+    int v1_val = 2147483647; //testing max int
 
-    int imm1 = 240;
-    int imm2 = -4;
-    int imm3 = 0;
-    int imm4 = 0;
+    int a0_val = 0; //testing 0
+    int a1_val = 0x99009900; //testing sending hex
 
-    String exp_val1 = ""+ (char)s2_val;
-    String exp_val2 = ""+ (char)s2_val;
-    String exp_val3 = ""+ (char)t1_val;
-    String exp_val4 = ""+ (char)s3_val;
+
+    // Base (address) Registers
+    int s2_val = 0x10010030; // random location
+    int s3_val = 0x10010000; // 10010000 in mem
+
+
+    // Expected Addresses + Their Values
+    String exp_instr1_addr = "10010120";
+    int exp_instr1_val = -1;
+
+    String exp_instr2_addr = "1001002c";
+    int exp_instr2_val = 2147483647;
+
+    String exp_instr3_addr = "10010000";
+    int exp_instr3_val = 0x00000000;
+
+    String exp_instr4_addr = "10010004";
+    int exp_instr4_val = 0x99009900;
+
 
     @BeforeEach
     public void setUp() {
-        CPU.t1 = t1_val;
+        // Source
+        CPU.v0 = v0_val;
+        CPU.v1 = v1_val;
+        CPU.a0 = a0_val;
+        CPU.a1 = a1_val;
+
+        // Base
         CPU.s2 = s2_val;
         CPU.s3 = s3_val;
 
-        // TODO
-//        data_mem.put("10010000", "Enter your integer: ");
-//        data_mem.put("10010015", "Your integer is EVEN!");
-//        data_mem.put("1001002b", "Your integer is ODD!");
+        hm1.put("10010000", 0x65746e45);
+        hm1.put("10010004", 0x6f792072);
+        hm1.put("10010008", 0x69207275);
+        hm1.put("1001000c", 0x6765746e);
+        hm1.put("10010010", 0x203a7265);
+        hm1.put("10010014", 0x756f5900);
+        hm1.put("10010018", 0x6e692072);
+        hm1.put("1001001c", 0x65676574);
+        hm1.put("10010020", 0x73692072);
+        hm1.put("10010024", 0x45564520);
+        hm1.put("10010028", 0x5900214e);
+        hm1.put("1001002c", 0x2072756f);
+        hm1.put("10010030", 0x65746e69);
+        hm1.put("10010034", 0x20726567);
+        hm1.put("10010038", 0x4f207369);
+        hm1.put("1001003c", 0x00214444);
+
+        DataSecConverter.data_mem = hm1;
     }
 
     @Test
-    public void setSw1(){
+    public void instr1(){
         sw = new Sw(bin_instr1);
         sw.operate();
 
-        int address_dec = CPU.s2 + imm1;
-        String address_hex = Integer.toHexString(address_dec);
-        //String val_in_mem = data_mem.get(address_hex);
-
-        //assertEquals(exp_val1, val_in_mem);
+        int val_in_mem = data_mem.get(exp_instr1_addr);
+        assertEquals(exp_instr1_val, val_in_mem);
     }
-
     @Test
-    public void setSw2(){
+    public void instr2(){
         sw = new Sw(bin_instr2);
         sw.operate();
 
-        int address_dec = CPU.s2 + imm2;
-        String address_hex = Integer.toHexString(address_dec);
-        //String val_in_mem = data_mem.get(address_hex);
-
-        //assertEquals(exp_val2, val_in_mem);
+        int val_in_mem = data_mem.get(exp_instr2_addr);
+        assertEquals(exp_instr2_val, val_in_mem);
     }
-
     @Test
-    public void setSw3(){
+    public void instr3(){
         sw = new Sw(bin_instr3);
         sw.operate();
 
-        int address_dec = CPU.s3 + imm3;
-        String address_hex = Integer.toHexString(address_dec);
-        //String val_in_mem = data_mem.get(address_hex);
-
-        //assertEquals(exp_val3, val_in_mem);
+        int val_in_mem = data_mem.get(exp_instr3_addr);
+        assertEquals(exp_instr3_val, val_in_mem);
     }
     @Test
-    public void setSw4(){
+    public void instr4(){
         sw = new Sw(bin_instr4);
         sw.operate();
 
-        int address_dec = CPU.s3 + imm4;
-        String address_hex = Integer.toHexString(address_dec);
-        //String val_in_mem = data_mem.get(address_hex);
-
-       //assertEquals(exp_val4, val_in_mem);
+        int val_in_mem = data_mem.get(exp_instr4_addr);
+        assertEquals(exp_instr4_val, val_in_mem);
     }
-
-
-
-
 }

@@ -10,7 +10,6 @@ import java.util.HashMap;
 
 public class Sw implements Operation {
     GeneralMachineCode gmc = new GeneralMachineCode();
-    private final String opcode = "2b";
     private String base = "";
     private String rt = "";
     private int offset = -1;
@@ -54,19 +53,17 @@ public class Sw implements Operation {
     public String operate() {
         HashMap<String, Integer> registers = CPU.get_registers_state();
 
-        // 1. get the value of the base register & rt
+        // 1] get the value of the base register & rt
         int rt_dec = registers.get(rt);
         int base_dec = registers.get(base);
 
-        // 2. Calculate the memory address based on base register and offset
-        int addr_dec = base_dec + offset; // "13e"
-//        int starting_addr = 268500992; // "0x10010000" SHOULD ALREDY HAVE VALID ADDRESS AS BASE
-//        int result_addr_dec = starting_addr + addr_dec; // 10010000 + 13e = 1001013e
+        // 2] Calculate the memory address based on base register and offset
+        int addr_dec = base_dec + offset;
+
         String hex = Integer.toHexString(addr_dec); //signed
 
-        // 3. Store the value of register rt INTO MEMORY at the calculated address
-        // TODO
-        //DataSecConverter.data_mem.put(hex, "" + rt_dec);
+        // 3] Store the value of register rt INTO MEMORY at the calculated address
+        DataSecConverter.data_mem.put(hex, rt_dec);
 
         return "Stored value of " + rt + " into memory address " + hex;
     }
