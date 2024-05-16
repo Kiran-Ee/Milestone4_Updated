@@ -75,7 +75,7 @@ class GetRegistersStateTest {
     int int_k0 = 26;
     int int_k1 = 27;
     int int_gp = 28;
-    int int_sp = 29;
+    int int_sp = 0x7fffeffc;
     int int_fp = 30;
     int int_ra = 31;
 

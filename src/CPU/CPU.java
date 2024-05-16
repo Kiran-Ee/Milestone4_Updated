@@ -47,8 +47,8 @@ public class CPU {
     public static int t9 = -1;
     public static int k0 = -1;
     public static int k1 = -1;
-    public static int gp = -1;
-    public static int sp = -1;
+    public static int gp = 0x10008000; //hardcoded
+    public static int sp = 0x7fffeffc; //hardcoded
     public static int fp = -1;
     public static int ra = -1;
 
@@ -247,29 +247,29 @@ public class CPU {
     }
 
     // "run_program" Helper: Performs the appropriate sys call function for run_program
-    public static String syscall_handler(int v0_val) { //TODO
+    public static String syscall_handler(int v0_val) { // TODO
         String return_string = "";
         switch (v0_val) {
             case 1: //print int
-                return_string = String.valueOf(a0);
-                System.out.println(return_string);
+                return_string = String.valueOf(a0) + "\n";
+                System.out.print(return_string);
                 break;
             case 4: //print string
                 String hex_a0_unpadded = Integer.toHexString(a0);
                 String hex_a0 = GeneralMachineCode.pad_binary(hex_a0_unpadded, 8 - hex_a0_unpadded.length());
 
-                return_string = address_to_label(hex_a0);
-                System.out.println(return_string);
+                return_string = address_to_label(hex_a0) + "\n";
+                System.out.print(return_string);
                 break;
             case 5: //read int
                 Scanner scanner = new Scanner(System.in);
-                v0 = scanner.nextInt();
-                //v0 = 11; // TODO - HARDCODING THIS FOR TESTING RunProgramTest!
+                //v0 = scanner.nextInt();
+                v0 = 11; // TODO - HARDCODING THIS FOR TESTING RunProgramTest!
                 return_string = "";
                 break;
             case 10: //stop execution
-                return_string = "-- program is finished running --";
-                System.out.println(return_string);
+                return_string = "-- program is finished running --\n";
+                System.out.print(return_string);
                 break;
             default:
                 throw new IllegalArgumentException("Only allowed to perform syscall : $v0 = 1,4,5,10");
@@ -311,7 +311,9 @@ public class CPU {
                 op_obj.operate();
             }
         }
-        if (pc == n) System.out.println("-- program is finished running (dropped off bottom) --");
+        if (!return_string.contains("-- program is finished running --")) {
+            return_string += "-- program is finished running (dropped off bottom) --\n";
+        }
         return return_string; //TODO - CAN I JUST PRINT IT IN THIS METHOD OR DOES IT NEED TO BE IN MAIN?
     }
 

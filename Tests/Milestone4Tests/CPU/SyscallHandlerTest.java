@@ -42,33 +42,33 @@ class SyscallHandlerTest {
     @Test
     void printInt_1() {
         CPU.a0 = 10;
-        assertEquals("10", CPU.syscall_handler(print_int));
+        assertEquals("10\n", CPU.syscall_handler(print_int));
     }
     @Test
     void printInt_2() {
         CPU.a0 = 0;
-        assertEquals("0", CPU.syscall_handler(print_int));
+        assertEquals("0\n", CPU.syscall_handler(print_int));
     }
     @Test
     void printInt_3() {
         CPU.a0 = 1234599;
-        assertEquals("1234599", CPU.syscall_handler(print_int));
+        assertEquals("1234599\n", CPU.syscall_handler(print_int));
     }
 
     @Test
     void printStr_1() {
         CPU.a0 = 0x10010000;
-        assertEquals("Enter your integer: ", CPU.syscall_handler(print_str));
+        assertEquals("Enter your integer: \n", CPU.syscall_handler(print_str));
     }
     @Test
     void printStr_2() {
         CPU.a0 = 0x10010015;
-        assertEquals("Your integer is EVEN!", CPU.syscall_handler(print_str));
+        assertEquals("Your integer is EVEN!\n", CPU.syscall_handler(print_str));
     }
     @Test
     void printStr_3() {
         CPU.a0 = 0x1001002b;
-        assertEquals("Your integer is ODD!", CPU.syscall_handler(print_str));
+        assertEquals("Your integer is ODD!\n", CPU.syscall_handler(print_str));
     }
 
 //    @Test // can't test this without overhauling method.
@@ -79,6 +79,6 @@ class SyscallHandlerTest {
     @Test
     void exit() {
         CPU.a0 = 132432; //doesn't matter
-        assertEquals("-- program is finished running --", CPU.syscall_handler(exit));
+        assertEquals("-- program is finished running --\n", CPU.syscall_handler(exit));
     }
 }
