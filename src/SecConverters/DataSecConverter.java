@@ -33,6 +33,8 @@ public class DataSecConverter {
             int ln_int = -1;
 
             while ((ln = reader.readLine()) != null) {
+                if(ln.isEmpty()) break;
+
                 ln_int = Integer.parseInt(ln, 16);
                 data_mem.put(cur_addr_str, ln_int);
                 cur_addr_dec += 4; //4 bytes

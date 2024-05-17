@@ -303,8 +303,8 @@ public class CPU {
                 break;
             case 5: //read int
                 Scanner scanner = new Scanner(System.in);
-                //v0 = scanner.nextInt();
-                v0 = 10; // TODO - HARDCODING THIS FOR TESTING RunProgramTest!
+                v0 = scanner.nextInt();
+                //v0 = 10; // TODO - HARDCODING THIS FOR TESTING RunProgramTest!
                 return_string = "";
                 break;
             case 10: //stop execution
@@ -353,6 +353,7 @@ public class CPU {
         }
         if (!return_string.contains("-- program is finished running --")) {
             return_string += "-- program is finished running (dropped off bottom) --\n";
+            System.out.println("-- program is finished running (dropped off bottom) --\n");
         }
         return return_string; //TODO - CAN I JUST PRINT IT IN THIS METHOD OR DOES IT NEED TO BE IN MAIN?
     }
