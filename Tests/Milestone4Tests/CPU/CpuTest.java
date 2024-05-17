@@ -70,13 +70,13 @@ class CpuTest {
     };
 
     @Test
-    void out_print1() {
+    void print_program1() {
         String return_string = CPU.cpu(dataSec1, textSec1);
         assertEquals(exp_out1, return_string);
     }
 
     @Test
-    void out_regs1() {
+    void registers_program1() {
         CPU.cpu(dataSec1, textSec1);
         HashMap<String, Integer> hm = CPU.get_registers_state();
 
@@ -102,13 +102,13 @@ class CpuTest {
     }
 
     @Test
-    void out_print2() {
+    void print_program2() {
         String return_string = CPU.cpu(dataSec2, textSec2);
         assertEquals(exp_out2, return_string);
     }
 
     @Test
-    void out_regs2() {
+    void registers_program2() {
         CPU.cpu(dataSec2, textSec2);
         HashMap<String, Integer> hm = CPU.get_registers_state();
 
@@ -134,12 +134,12 @@ class CpuTest {
     }
 
     @Test
-    void out_print3() {
+    void print_program3() {
         assertEquals(exp_out3, CPU.cpu(dataSec3, textSec3));
     }
 
     @Test
-    void out_regs3() {
+    void registers_program3() {
         CPU.cpu(dataSec3, textSec3);
         HashMap<String, Integer> hm = CPU.get_registers_state();
 

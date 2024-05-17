@@ -343,7 +343,7 @@ public class CPU {
 
             if (op_obj instanceof Syscall) {
                 return_string += syscall_handler(v0);
-            }
+            } //00100019
             else if (op_obj instanceof j || op_obj instanceof Beq || op_obj instanceof Bne) {
                 pc = branch_handler(op_obj, pc);
             }
