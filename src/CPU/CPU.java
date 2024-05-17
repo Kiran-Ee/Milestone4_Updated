@@ -323,10 +323,9 @@ public class CPU {
             int offset = Integer.parseInt(branch_obj.getInstruction()[2]); // this needs to be seen as "signed" bc can have negative offset & offsets are represented as their decimal value
             PC = PC + offset; // the "+1" is taken care of in the loop
         } else if (branch_obj.operate().equals("jump")) {
-            int address_dec_word = Integer.parseInt(branch_obj.getInstruction()[0]); //MARS reports the "word addressing" but we need byte so "*4"
-            int address_dec_byte = address_dec_word*4;
+            int address_dec = Integer.parseInt(branch_obj.getInstruction()[0]); //MARS reports the "word addressing" but we need byte so "*4"
             int starting_addr_dec = Integer.parseInt("00400000", 16);
-            PC = (address_dec_byte - starting_addr_dec) / 4 - 1; // word address: "-1" because loop increments
+            PC = (address_dec - starting_addr_dec) / 4 - 1; // word address: "-1" because loop increments
         }
         return PC;
     }
