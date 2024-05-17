@@ -45,7 +45,7 @@ public class DataSecConverter {
 
     /**
      * Looks for the address in memory, starts piecing together (undoing little endian) the label until reaching null byte.
-     * Used to extract strings from memory.
+     * Used to extract strings from memory in syscalls.
      * @param key_address
      * @return the corresponding label
      */

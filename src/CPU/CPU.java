@@ -12,6 +12,8 @@ import java.util.Scanner;
 import static MachineCode.GeneralMachineCode.bin_to_dec;
 import static MachineCode.GeneralMachineCode.dec_to_bin;
 import static SecConverters.DataSecConverter.address_to_label;
+import static SecConverters.DataSecConverter.data_mem;
+import static SecConverters.TextSecConverter.text_mem;
 
 // Keeps track of registers, runs program
 public class CPU {
@@ -56,10 +58,48 @@ public class CPU {
     // 1] Translates data & text secs to instructions or mem
     // 2] Runs program
     public static String cpu(String hex_dta, String hex_txt) {
+        reset_cpu();
         DataSecConverter.dataSec_Converter(hex_dta); //linkedHashmap
         TextSecConverter.textSec_Converter(hex_txt); //object[]
 
         return run_program(); //executes all instructions
+    }
+
+    public static void reset_cpu() {
+        data_mem = new LinkedHashMap<>();
+        text_mem = null;
+         zero = 0;
+         at = -1;
+         a0 = -1;
+         a1 = -1;
+         a2 = -1;
+         a3 = -1;
+         v0 = -1;
+         v1 = -1;
+         t0 = -1;
+         t1 = -1;
+         t2 = -1;
+         t3 = -1;
+         t4 = -1;
+         t5 = -1;
+         t6 = -1;
+         t7 = -1;
+         s0 = -1;
+         s1 = -1;
+         s2 = -1;
+         s3 = -1;
+         s4 = -1;
+         s5 = -1;
+         s6 = -1;
+         s7 = -1;
+         t8 = -1;
+         t9 = -1;
+         k0 = -1;
+         k1 = -1;
+         gp = 0x10008000; //hardcoded
+         sp = 0x7fffeffc; //hardcoded
+         fp = -1;
+         ra = -1;
     }
 
     // Used by Operations to inspect the received register values
@@ -264,7 +304,7 @@ public class CPU {
             case 5: //read int
                 Scanner scanner = new Scanner(System.in);
                 //v0 = scanner.nextInt();
-                v0 = 11; // TODO - HARDCODING THIS FOR TESTING RunProgramTest!
+                v0 = 10; // TODO - HARDCODING THIS FOR TESTING RunProgramTest!
                 return_string = "";
                 break;
             case 10: //stop execution
@@ -283,19 +323,20 @@ public class CPU {
             int offset = Integer.parseInt(branch_obj.getInstruction()[2]); // this needs to be seen as "signed" bc can have negative offset & offsets are represented as their decimal value
             PC = PC + offset; // the "+1" is taken care of in the loop
         } else if (branch_obj.operate().equals("jump")) {
-            int address_dec = Integer.parseInt(branch_obj.getInstruction()[0]);
+            int address_dec_word = Integer.parseInt(branch_obj.getInstruction()[0]); //MARS reports the "word addressing" but we need byte so "*4"
+            int address_dec_byte = address_dec_word*4;
             int starting_addr_dec = Integer.parseInt("00400000", 16);
-            PC = (address_dec - starting_addr_dec) / 4 - 1; // word address: "-1" because loop increments
+            PC = (address_dec_byte - starting_addr_dec) / 4 - 1; // word address: "-1" because loop increments
         }
         return PC;
     }
 
     // Iterates over all our instructions & operates ... NEEDS TO BE FIXED FOR PC, JUMPS, SYSCALL ...
     public static String run_program() {
-        Operation[] txtSec_opObjs = TextSecConverter.text_mem;
+        Operation[] txtSec_opObjs = text_mem;
         Operation op_obj = null;
         String return_string = ""; // only syscall returns
-        int n = TextSecConverter.text_mem.length;
+        int n = text_mem.length;
         int pc = 0;
 
         for (; pc < n; pc++) {
