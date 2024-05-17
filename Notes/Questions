@@ -1,10 +1,12 @@
 ####################################################################################################
 ---:QUESTIONS:---
+
 4/?
 1] *not sure how to get the label from hex for the data sec*
     - We're give the actual datavalues in the data_sec + the addresses from the test_sec.
 2] do branches have to actually branch?
     - Yes.
+
 4/24
 3] Why are we sending data_sec's hex, why not just "run" the text instructions?
     - If syscall occurs (print string), we need to know "what is that string"
@@ -16,7 +18,20 @@
  5] LW: how to deal with "non-aligned words" (example of EOO) + IS IT STORING AND ADDRESS OR THE ACTUAL VALUE?
     - Value being put in register.
  6] LW: should this handle number words or string words or both ?
-    -
- 6] How to deal with Sw - I have values stored as int but my memory can hold Strings ... do i just have to convert the int's to ASCIIs in that the rt register and put that in memory (but if it's bigger than 1 register this won't work)?
+    - Numbers, no strings.
+
+5/14
+ 7] How to deal with Sw - 10010000 -> "Enter your integer: "... 10010004
+    - Keep as hash: store hex/int as value, each line of data map would be it's own address.
+        - Creating String (1st address, 4 chars, keep going until null)
+        - when syscall THEN convert into ASCII
     - NO STRINGS FOR THIS ASSIGNMENT (we never actually put strings inside registers, just the address of the label)
+        - ?I have values stored as int but my memory can hold Strings ... do i just have to convert the int's to ASCIIs in that the rt register and put that in memory (but if it's bigger than 1 register this won't work)?
+ 8] Run_program questions: "printing" / "scanner w/ debugging"
+    - .data and .text & run in configurations
+ 9] How to test with jar?
+    - "(base) kiransgreymbair:Milestone4_Updated kiran.earnshaw$ java -jar out/artifacts/Milestone4_Updated_jar/Milestone4_Updated.jar Tests/Milestone4Tests/CPU/simple.text Tests/Milestone4Tests/CPU/simple.data
+       4"
+ 10] due 15th or "before 17th" which is the 16th?
+    - Technically "17th" midnight.
 ####################################################################################################

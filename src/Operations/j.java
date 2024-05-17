@@ -7,12 +7,17 @@ import java.math.BigInteger;
 
 public class j implements Operation {
     GeneralMachineCode gmc = new GeneralMachineCode();
-    private int address = -1;
+    private int address = -1; //should be byte addressing
 
     public j(String binary){
         String[] parsedInstruction = binary_parser(binary);
         if (parsedInstruction.length == 1) {
-            address = new BigInteger(parsedInstruction[0], 2).intValue();
+            String addr_str = parsedInstruction[0];
+
+            address = new BigInteger(addr_str, 2).intValue();
+            if(addr_str.charAt(3) == '0') {
+                address *= 4;
+            }
         } else {
             throw new IllegalArgumentException("Invalid binary instruction format.");
         }

@@ -57,7 +57,7 @@ public class Lui implements Operation {
 //
 //        result = bin_to_dec(bin,true); // making sure it's in unsigned
 
-        CPU.update_register(rt, result); //this actually stores a negative value in register
+        CPU.update_register(rt, result);
         return "Performed LUI operation:  " + immediate + "->   " + rt + "   =   " + result;
     }
 }
